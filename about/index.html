@@ -352,6 +352,42 @@
     
 
     
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+          <script>
+  if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+    // 1. 变量清理，防止看板娘报错
+    window.live2d_path = undefined;
+
+    // 2. 加载看板娘
+    var s1 = document.createElement('script');
+    s1.src = 'https://fastly.jsdelivr.net/npm/live2d-widgets@1.0.0/dist/autoload.js';
+    document.body.appendChild(s1);
+    
+    // 3. 加载流星效果
+    var s2 = document.createElement('script');
+    s2.src = 'https://www.loliapi.com/acg/static/js/meteor.js';
+    document.body.appendChild(s2);
+  }
+</script> <style>
+  /* 透明化背景，确保流星可见 */
+  .banner, .header-inner, #board, .container-fluid {
+    background: transparent !important;
+  }
+  canvas {
+    z-index: -1 !important;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+  }
+  /* 如果你是白色背景，流星看不见，这里强制把底层背景设为暗色 */
+  body {
+    background-color: #1a1c1d !important;
+  }
+</style>
+        </div>
+      </div>
+    
   </main>
 
   <footer>
