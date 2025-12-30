@@ -322,6 +322,162 @@
     
 
     
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+          <canvas id="starfield-canvas"></canvas> <script>
+  (function() {
+    var canvas = document.getElementById('starfield-canvas');
+    var ctx = canvas.getContext('2d');
+    var stars = [];
+    var numStars = 150;
+    function init() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      stars = [];
+      for (var i = 0; i < numStars; i++) {
+        stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: Math.random() * 1.5, d: Math.random() * numStars });
+      }
+    }
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "rgba(220, 220, 220, 0.8)"; 
+      ctx.beginPath();
+      for (var i = 0; i < numStars; i++) {
+        var s = stars[i];
+        ctx.moveTo(s.x, s.y);
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2, true);
+      }
+      ctx.fill();
+      update();
+    }
+    function update() {
+      for (var i = 0; i < numStars; i++) {
+        var s = stars[i];
+        s.y += 0.15; 
+        if (s.y > canvas.height) { s.y = 0; s.x = Math.random() * canvas.width; }
+      }
+    }
+    function tick() { draw(); requestAnimationFrame(tick); }
+    init(); tick();
+    window.addEventListener('resize', init);
+  })();
+</script>
+<script>
+  (function() {
+    function injectHomeText() {
+      // 只在首页注入这行字
+      if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+        var target = document.querySelector('.header-inner .full-bg-img .banner-text'); 
+        if (target && !document.getElementById('custom-animated-text')) {
+          var customText = document.createElement('div');
+          customText.id = 'custom-animated-text';
+          customText.innerHTML = '✨ 探索无限可能，记录点滴思绪 ✨'; 
+          target.appendChild(customText);
+          
+          // 确保在打字机完成前完全不可见
+          setTimeout(function() {
+            customText.classList.add('start-animation');
+          }, 2800); // 如果打字机还没写完，就把 2800 调大
+        }
+      }
+    }
+    // 兼容 Fluid 的 PJAX 异步加载（如果是的话）
+    injectHomeText();
+    window.addEventListener('load', injectHomeText);
+  })();
+</script>
+<style>
+  /* 星空画布基础样式 */
+  #starfield-canvas {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1; pointer-events: none; background-color: transparent;
+  }
+
+  /* --- 暗黑模式：透视星空逻辑 --- */
+  [data-user-color-scheme="dark"] #starfield-canvas {
+    display: block;
+    background-color: #05080a; 
+  }
+  [data-user-color-scheme="dark"] #board, 
+  [data-user-color-scheme="dark"] .modal-content,
+  [data-user-color-scheme="dark"] .footer-inner,
+  [data-user-color-scheme="dark"] .navbar {
+    background-color: rgba(13, 17, 23, 0.4) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  [data-user-color-scheme="dark"] .full-bg-img, 
+  [data-user-color-scheme="dark"] #banner,
+  [data-user-color-scheme="dark"] .mask-flex {
+    background-image: none !important;
+    background-color: transparent !important;
+  }
+
+  /* --- 明亮模式：全页面文字清晰度优化 --- */
+  [data-user-color-scheme="light"] #starfield-canvas {
+    display: none;
+  }
+  
+  /* 针对所有页面（首页、分类、关于等）的 Slogan 强化 */
+  [data-user-color-scheme="light"] .banner-text .h2,
+  [data-user-color-scheme="light"] .banner-text h1,
+  [data-user-color-scheme="light"] .index-info .typed-text,
+  [data-user-color-scheme="light"] #custom-animated-text {
+    /* 强制全站明亮模式下的 Banner 文字为白色带深阴影，这样无论头图深浅都清晰 */
+    color: #ffffff !important;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8), 2px 2px 4px rgba(0, 0, 0, 1) !important;
+    font-weight: bold !important;
+  }
+
+  [data-user-color-scheme="light"] .navbar {
+    background-color: rgba(0, 0, 0, 0.15) !important;
+    backdrop-filter: blur(5px);
+  }
+  [data-user-color-scheme="light"] .navbar .nav-link,
+  [data-user-color-scheme="light"] .navbar .navbar-brand {
+    color: #fff !important;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8) !important;
+  }
+  [data-user-color-scheme="light"] .mask-flex {
+    background-color: rgba(0, 0, 0, 0.3) !important;
+  }
+
+  /* --- 动态文字时序补丁 --- */
+  #custom-animated-text {
+    font-size: 1.1rem;
+    margin-top: 1.5rem;
+    text-align: center;
+    /* 初始状态：不显示，且不占位，完全透明 */
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.9) translateY(10px);
+    transition: none;
+  }
+
+  /* 动画执行状态 */
+  .start-animation {
+    visibility: visible !important;
+    animation: fadeInZoomCustom 1.5s ease-out forwards;
+  }
+
+  @keyframes fadeInZoomCustom {
+    0% { opacity: 0; transform: scale(0.9) translateY(10px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  /* 版权声明区 */
+  .post-copyright {
+    margin-top: 3rem; padding: 1rem 1.5rem;
+    border-left: 3px solid #3498db !important;
+    background-color: var(--board-bg-color);
+  }
+  .post-copyright-license { display: none !important; }
+</style>
+        </div>
+      </div>
+    
   </main>
 
   <footer>
