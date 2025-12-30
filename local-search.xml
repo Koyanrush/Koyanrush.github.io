@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>你好！</title>
+    <link href="/2025/12/30/first-blog/"/>
+    <url>/2025/12/30/first-blog/</url>
+    
+    <content type="html"><![CDATA[<h2 id="👋-你好，欢迎来到这里！"><a href="#👋-你好，欢迎来到这里！" class="headerlink" title="👋 你好，欢迎来到这里！"></a>👋 你好，欢迎来到这里！</h2><p>这是我的第一篇 Hexo 博客文章。经过一番折腾，网站终于跑起来了！</p><h3 id="1-关于我"><a href="#1-关于我" class="headerlink" title="1. 关于我"></a>1. 关于我</h3><ul><li><strong>坐标</strong>：互联网的一角</li><li><strong>爱好</strong>：折腾代码、写作、看海</li><li><strong>格言</strong>：<em>与其向往，不如出发。</em></li></ul><hr><h3 id="2-这里的写作体验"><a href="#2-这里的写作体验" class="headerlink" title="2. 这里的写作体验"></a>2. 这里的写作体验</h3><p>在 Markdown 里写东西非常简单。比如我想强调：<strong>一定要记得备份配置文件！</strong> 只需要加四个星号。</p><p>如果要引用一段我很喜欢的话：</p><blockquote><p>“生命太短，短到没时间留给遗憾。”</p></blockquote><h3 id="3-我学会的魔法指令"><a href="#3-我学会的魔法指令" class="headerlink" title="3. 我学会的魔法指令"></a>3. 我学会的魔法指令</h3><p>下面是我刚才在博客里尝试插入的一段 Python 代码：</p><pre><code class="language-python">def say_hello():    name = &quot;朋友&quot;    print(f&quot;你好，{name}！欢迎来到我的博客。&quot;)say_hello()4. 这里的风景下面是我随手插的一张风景图（来自图床）：5. 待办清单[x] 完成博客搭建[x] 调好看板娘和 Slogan[ ] 写够 10 篇文章[ ] 换一个更酷的主题::: note info 小贴士： 看到上面的 `` 了吗？在首页上，大家只能看到它之前的“格言”，只有点进详情页才能看到后面的图表和代码。 :::[ 欢迎在评论区给我留言！ ]</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>随笔</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>天地初开</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Hello World</title>
     <link href="/2025/12/28/hello-world/"/>
     <url>/2025/12/28/hello-world/</url>
