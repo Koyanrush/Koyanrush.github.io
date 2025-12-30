@@ -327,23 +327,36 @@
 <script>
   (function() {
     function injectHomeText() {
-      // 只在首页注入这行字
       if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
         var target = document.querySelector('.header-inner .full-bg-img .banner-text'); 
-        if (target && !document.getElementById('custom-animated-text')) {
-          var customText = document.createElement('div');
-          customText.id = 'custom-animated-text';
-          customText.innerHTML = '✨ 探索无限可能，记录点滴思绪 ✨'; 
-          target.appendChild(customText);
+        if (target && !document.getElementById('custom-text-container')) {
+          // 创建一个容器包裹两行文字
+          var container = document.createElement('div');
+          container.id = 'custom-text-container';
           
-          // 确保在打字机完成前完全不可见
+          // 第一行文字
+          var line1 = document.createElement('div');
+          line1.className = 'custom-animated-line';
+          line1.innerHTML = '电脑端可以看见看板娘哦'; 
+          
+          // 第二行文字 (新添加)
+          var line2 = document.createElement('div');
+          line2.className = 'custom-animated-line';
+          line2.style.fontSize = '0.9rem'; // 第二行可以稍微小一点，更有层次感
+          line2.style.marginTop = '10px';
+          line2.innerHTML = '✨ 切成深色模式吧，上面可以改的 ✨'; 
+
+          container.appendChild(line1);
+          container.appendChild(line2);
+          target.appendChild(container);
+          
+          // 统一延迟触发动画
           setTimeout(function() {
-            customText.classList.add('start-animation');
-          }, 2800); // 如果打字机还没写完，就把 2800 调大
+            container.classList.add('start-animation');
+          }, 2800); 
         }
       }
     }
-    // 兼容 Fluid 的 PJAX 异步加载（如果是的话）
     injectHomeText();
     window.addEventListener('load', injectHomeText);
   })();
@@ -382,12 +395,10 @@
     display: none;
   }
   
-  /* 针对所有页面（首页、分类、关于等）的 Slogan 强化 */
   [data-user-color-scheme="light"] .banner-text .h2,
   [data-user-color-scheme="light"] .banner-text h1,
   [data-user-color-scheme="light"] .index-info .typed-text,
-  [data-user-color-scheme="light"] #custom-animated-text {
-    /* 强制全站明亮模式下的 Banner 文字为白色带深阴影，这样无论头图深浅都清晰 */
+  [data-user-color-scheme="light"] .custom-animated-line {
     color: #ffffff !important;
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.8), 2px 2px 4px rgba(0, 0, 0, 1) !important;
     font-weight: bold !important;
@@ -406,19 +417,21 @@
     background-color: rgba(0, 0, 0, 0.3) !important;
   }
 
-  /* --- 动态文字时序补丁 --- */
-  #custom-animated-text {
-    font-size: 1.1rem;
+  /* --- 双行文字动效补丁 --- */
+  #custom-text-container {
     margin-top: 1.5rem;
-    text-align: center;
-    /* 初始状态：不显示，且不占位，完全透明 */
     opacity: 0;
     visibility: hidden;
     transform: scale(0.9) translateY(10px);
-    transition: none;
+    text-align: center;
   }
 
-  /* 动画执行状态 */
+  .custom-animated-line {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-color);
+  }
+
   .start-animation {
     visibility: visible !important;
     animation: fadeInZoomCustom 1.5s ease-out forwards;
