@@ -1,0 +1,28 @@
+/* 强制首页 Slogan (打字机文字) 锐化 */
+.index-info .typed-text {
+ color: #000000 !important; /* 纯黑 */
+  /* 如果背景较深，加一个淡淡的白色发光边缘，文字会更清晰 */
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.5) !important; 
+  font-weight: 800 !important; /* 加粗 */
+  filter: none !important;
+}
+
+/* 如果是副标题（slogan 下方的小字）模糊 */
+.index-info .index-slogan {
+  color: #000000 !important;
+}
+
+/* 2. 强化看板娘对话框文字清晰度 */
+#waifu-tips {
+  color: #333 !important;              /* 对话框通常是浅色背景，文字用深色 */
+  font-weight: 500 !important;
+  opacity: 1 !important;               /* 确保不透明 */
+  line-height: 1.5;
+}
+
+/* 3. 如果看板娘对话框背景太透明，也可以改亮一点 */
+.waifu-tips {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
