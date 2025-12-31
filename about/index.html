@@ -226,7 +226,7 @@
           >
           
             <div class="about-avatar">
-              <img src="/img/avatar.png" srcset="/img/loading.gif" lazyload class="img-fluid" alt="avatar">
+              <img src="/img/76E788D4FCBABFED3D3EEC49B77753E5.jpg" srcset="/img/loading.gif" lazyload class="img-fluid" alt="avatar">
             </div>
           
           <div class="container">
@@ -236,14 +236,14 @@
 
 <div class="text-center">
   <div class="about-info">
-    <div class="about-name">Fluid</div>
-    <div class="about-intro">An elegant theme for Hexo</div>
+    <div class="about-name">Koyan</div>
+    <div class="about-intro">Fight for all the good things in the world</div>
     <div class="about-icons">
       
         
         
         
-        <a href=https://github.com class="
+        <a href=https://github.com/Koyanrush class="
            hint--bottom hint--rounded"
            aria-label="GitHub"
            target="_blank"
@@ -255,12 +255,12 @@
         
         
         
-        <a href=https://douban.com class="
+        <a href=http://wpa.qq.com/msgrd?v=3&amp;uin=1748341434&amp;site=qq&amp;menu=yes class="
            hint--bottom hint--rounded"
-           aria-label="豆瓣"
+           aria-label="QQ"
            target="_blank"
         >
-          <i class="iconfont icon-douban-fill" aria-hidden="true"></i>
+          <i class="iconfont icon-qq-fill" aria-hidden="true"></i>
           
         </a>
       
@@ -274,7 +274,7 @@
         >
           <i class="iconfont icon-wechat-fill" aria-hidden="true"></i>
           
-            <img class="qr-img" src="/img/favicon.png" srcset="/img/loading.gif" lazyload alt="qrcode" />
+            <img class="qr-img" src="/img/wechat.jpg" srcset="/img/loading.gif" lazyload alt="qrcode" />
           
         </a>
       
@@ -361,34 +361,85 @@
     var canvas = document.getElementById('starfield-canvas');
     var ctx = canvas.getContext('2d');
     var stars = [];
+    var meteors = [];
     var numStars = 150;
+
+    // 初始化画布
     function init() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
       stars = [];
+      meteors = [];
       for (var i = 0; i < numStars; i++) {
-        stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: Math.random() * 1.5, d: Math.random() * numStars });
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 1.5,
+          speed: Math.random() * 0.2 + 0.1
+        });
       }
     }
+
+    // 创建单个流星
+    function createMeteor() {
+      meteors.push({
+        x: Math.random() * canvas.width * 1.5, // 从右侧进入
+        y: Math.random() * canvas.height * 0.5 - 200, // 从顶部随机高度
+        len: Math.random() * 80 + 50, // 尾巴长度
+        speed: Math.random() * 6 + 4, // 飞行速度
+        size: Math.random() * 1 + 0.5 // 流星头大小
+      });
+    }
+
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "rgba(220, 220, 220, 0.8)"; 
+      
+      // 绘制普通背景星
+      ctx.fillStyle = "rgba(220, 220, 220, 0.8)";
       ctx.beginPath();
       for (var i = 0; i < numStars; i++) {
         var s = stars[i];
         ctx.moveTo(s.x, s.y);
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2, true);
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        // 缓慢下落动态
+        s.y += s.speed;
+        if (s.y > canvas.height) s.y = 0;
       }
       ctx.fill();
-      update();
-    }
-    function update() {
-      for (var i = 0; i < numStars; i++) {
-        var s = stars[i];
-        s.y += 0.15; 
-        if (s.y > canvas.height) { s.y = 0; s.x = Math.random() * canvas.width; }
+
+      // 绘制流星
+      for (var j = 0; j < meteors.length; j++) {
+        var m = meteors[j];
+        // 流星是一个渐变线条
+        var grad = ctx.createLinearGradient(m.x, m.y, m.x + m.len, m.y - m.len);
+        grad.addColorStop(0, "rgba(255, 255, 255, 1)"); // 头
+        grad.addColorStop(1, "rgba(255, 255, 255, 0)"); // 尾巴消失
+        
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = m.size;
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        ctx.moveTo(m.x, m.y);
+        ctx.lineTo(m.x - m.len, m.y + m.len); // 向左下方划过
+        ctx.stroke();
+
+        // 更新流星位置
+        m.x -= m.speed;
+        m.y += m.speed;
+
+        // 移除出界的流星
+        if (m.y > canvas.height + 100 || m.x < -100) {
+          meteors.splice(j, 1);
+          j--;
+        }
+      }
+
+      // 控制流星生成的频率 (数值越大流星越少)
+      if (Math.random() < 0.015) { 
+        createMeteor();
       }
     }
+
     function tick() { draw(); requestAnimationFrame(tick); }
     init(); tick();
     window.addEventListener('resize', init);
@@ -400,19 +451,16 @@
       if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
         var target = document.querySelector('.header-inner .full-bg-img .banner-text'); 
         if (target && !document.getElementById('custom-text-container')) {
-          // 创建一个容器包裹两行文字
           var container = document.createElement('div');
           container.id = 'custom-text-container';
           
-          // 第一行文字
           var line1 = document.createElement('div');
           line1.className = 'custom-animated-line';
           line1.innerHTML = '电脑端可以看见看板娘哦'; 
           
-          // 第二行文字 (新添加)
           var line2 = document.createElement('div');
           line2.className = 'custom-animated-line';
-          line2.style.fontSize = '0.9rem'; // 第二行可以稍微小一点，更有层次感
+          line2.style.fontSize = '0.9rem';
           line2.style.marginTop = '10px';
           line2.innerHTML = '✨ 切成深色模式吧，上面可以改的 ✨'; 
 
@@ -420,7 +468,6 @@
           container.appendChild(line2);
           target.appendChild(container);
           
-          // 统一延迟触发动画
           setTimeout(function() {
             container.classList.add('start-animation');
           }, 2800); 
