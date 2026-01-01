@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://koyanrush.github.io/img/pexels-mi1kel-1259614.jpg">
 <meta property="article:published_time" content="2025-12-31T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-01-01T15:49:36.227Z">
+<meta property="article:modified_time" content="2026-01-01T16:00:00.559Z">
 <meta property="article:author" content="Koyanrush">
 <meta property="article:tag" content="天地初开">
 <meta name="twitter:card" content="summary_large_image">
@@ -234,7 +234,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          1.2k 字
         
       </span>
     
@@ -245,7 +245,7 @@
         
         
         
-          10 分钟
+          11 分钟
         
       </span>
     
@@ -287,7 +287,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年1月1日 晚上
+                    本文最后更新于 2026年1月2日 凌晨
                   
                 
               </p>
@@ -321,9 +321,25 @@
 <h3 id="🐎对于已来的2026我想说…"><a href="#🐎对于已来的2026我想说…" class="headerlink" title="🐎对于已来的2026我想说…"></a>🐎对于已来的2026我想说…</h3><p>短期目标就是顺利通过期末考，然后开开心心回家过年。作为年级委的同时还参加各种比赛，复习时间其实挺紧张的。微积分，线性代数，程序设计，这些学了没把握会做的；网安导论，道法，这些根本没怎么学的，都是心头之患，也就英语还算有点自信。所以，接下来要好好复习啦✨</p>
 <p>中期目标是趁着寒假多学一些专业知识。就ctf而言，虽然现在会解题，但是基本不了解背后原理，只停留在表面。在ctf实验室面试时，理论类的问题我基本都说不清楚。要想在专业领域站稳脚跟，这是必要的一步。还有四六级，我们学校大一不让报，天然比多数同龄人晚一年。所以大二的四级考试非常重要，也是非过不可的。</p>
 <p>长期目标当然是考研。这是我大学四年最大的目标。毕竟一直有一颗考985的心。目标院校的话，还是哈工大，考不到我就去江浙沪。</p>
-<p>总而言之，就是 <strong>“保护我已拥有的，争取我想争取的，努力做好自己，剩下的交给时间”</strong> !</p>
+<p>用一句话概括，就是 <strong>“保护我已拥有的，争取我想争取的，努力做好自己，剩下的交给时间”</strong> !</p>
 <h3 id="2026，继续做一些有趣的事！"><a href="#2026，继续做一些有趣的事！" class="headerlink" title="2026，继续做一些有趣的事！"></a>2026，继续做一些有趣的事！</h3><p>下面这个python可以召唤二进制烟花哦🎇🎇</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> tkinter <span class="hljs-keyword">as</span> tk<br><span class="hljs-keyword">import</span> random<br><span class="hljs-keyword">import</span> time<br><br><span class="hljs-comment"># 烟花粒子的类</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Particle</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, canvas, x, y, color</span>):<br>        <span class="hljs-variable language_">self</span>.canvas = canvas<br>        <span class="hljs-comment"># 烟花炸开的是二进制数字 0 或 1</span><br>        <span class="hljs-variable language_">self</span>.char = random.choice([<span class="hljs-string">&quot;0&quot;</span>, <span class="hljs-string">&quot;1&quot;</span>])<br>        <span class="hljs-variable language_">self</span>.<span class="hljs-built_in">id</span> = canvas.create_text(x, y, text=<span class="hljs-variable language_">self</span>.char, fill=color, font=(<span class="hljs-string">&quot;Courier New&quot;</span>, <span class="hljs-number">12</span>, <span class="hljs-string">&quot;bold&quot;</span>))<br>        <span class="hljs-comment"># 随机爆炸速度和方向</span><br>        <span class="hljs-variable language_">self</span>.vx = random.uniform(-<span class="hljs-number">5</span>, <span class="hljs-number">5</span>)<br>        <span class="hljs-variable language_">self</span>.vy = random.uniform(-<span class="hljs-number">5</span>, <span class="hljs-number">5</span>)<br>        <span class="hljs-variable language_">self</span>.life = <span class="hljs-number">1.0</span>  <span class="hljs-comment"># 透明度/寿命</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">update</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-comment"># 模拟重力和阻力</span><br>        <span class="hljs-variable language_">self</span>.vy += <span class="hljs-number">0.1</span><br>        <span class="hljs-variable language_">self</span>.canvas.move(<span class="hljs-variable language_">self</span>.<span class="hljs-built_in">id</span>, <span class="hljs-variable language_">self</span>.vx, <span class="hljs-variable language_">self</span>.vy)<br>        <span class="hljs-variable language_">self</span>.life -= <span class="hljs-number">0.02</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.life &lt;= <span class="hljs-number">0</span>:<br>            <span class="hljs-variable language_">self</span>.canvas.delete(<span class="hljs-variable language_">self</span>.<span class="hljs-built_in">id</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">explode</span>(<span class="hljs-params">canvas, x, y</span>):<br>    <span class="hljs-comment"># 随机一种颜色</span><br>    colors = [<span class="hljs-string">&#x27;#00FF00&#x27;</span>, <span class="hljs-string">&#x27;#00DD00&#x27;</span>, <span class="hljs-string">&#x27;#00AA00&#x27;</span>, <span class="hljs-string">&#x27;#FFFFFF&#x27;</span>, <span class="hljs-string">&#x27;#00FFFF&#x27;</span>]<br>    color = random.choice(colors)<br>    particles = [Particle(canvas, x, y, color) <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">20</span>)]<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">animate</span>():<br>        <span class="hljs-keyword">nonlocal</span> particles<br>        particles = [p <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> particles <span class="hljs-keyword">if</span> p.update()]<br>        <span class="hljs-keyword">if</span> particles:<br>            canvas.after(<span class="hljs-number">30</span>, animate)<br><br>    animate()<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">launch_firework</span>():<br>    <span class="hljs-comment"># 随机在屏幕中心区域爆炸</span><br>    x = random.randint(<span class="hljs-number">100</span>, <span class="hljs-number">700</span>)<br>    y = random.randint(<span class="hljs-number">100</span>, <span class="hljs-number">500</span>)<br>    explode(canvas, x, y)<br>    <span class="hljs-comment"># 随机间隔发射下一个</span><br>    root.after(random.randint(<span class="hljs-number">500</span>, <span class="hljs-number">1500</span>), launch_firework)<br><br><span class="hljs-comment"># 主窗口设置</span><br>root = tk.Tk()<br>root.title(<span class="hljs-string">&quot;2026 二进制新年烟花&quot;</span>)<br><span class="hljs-comment"># 设置全屏或大窗口</span><br>canvas = tk.Canvas(root, width=<span class="hljs-number">800</span>, height=<span class="hljs-number">600</span>, bg=<span class="hljs-string">&#x27;black&#x27;</span>)<br>canvas.pack(fill=<span class="hljs-string">&quot;both&quot;</span>, expand=<span class="hljs-literal">True</span>)<br><br>root.after(<span class="hljs-number">500</span>, launch_firework)<br>root.mainloop()<br></code></pre></td></tr></table></figure>
+
+<p>还有一些新年寄语：</p>
+<div class="note note-danger">
+            <p>即便世界充满变数，也要像代码一样逻辑清晰；即便生活偶尔冗余，也要像算法一样追求最优。2026，愿你的生命没有 Bug，只有不断迭代的Version2.0。</p>
+          </div>
+
+<div class="note note-danger">
+            <p>愿新的一年，我们不仅有赶路的心，更有赏花的情。</p>
+          </div>
+
+<div class="note note-danger">
+            <p>万物更新，旧疾当愈。2026，愿你所得皆所愿，所行皆坦途。 🥂</p>
+          </div>
+
+<p>最后，祝看到这里的所有人，2026元旦快乐！</p>
+
                 
               </div>
             
@@ -439,7 +455,7 @@
       Fluid.utils.createCssLink('https://registry.npmmirror.com/@waline/client/2.15.8/files/dist/waline.css')
       Fluid.utils.createScript('https://registry.npmmirror.com/@waline/client/2.15.8/files/dist/waline.js', function() {
         var options = Object.assign(
-          {"serverURL":"https://waline-theta-six-24.vercel.app","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"placeholder":"来聊两句吧 ~"},
+          {"serverURL":"https://waline.icant.qzz.io","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"placeholder":"来聊两句吧 ~"},
           {
             el: '#waline',
             path: window.location.pathname
