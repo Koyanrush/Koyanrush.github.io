@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>河南省第七届金盾信安杯部分wp（原赛+重赛）</title>
+    <link href="/2026/01/11/Jindun2025/"/>
+    <url>/2026/01/11/Jindun2025/</url>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>嗯….</p><p>这一篇wp本来应该及时发出的，但那时还没有blog😓，然后因为一些众所周知的原因，导致这次比赛在我心中的地位骤降，故没有搭理；后来想想还是补上吧，怎么也是我参加的第一个省B类竞赛，遂借着期末周忙里偷闲做一下。</p><p>不过还是忍不住想吐槽一句：</p><p><strong>“致敬传奇比赛金盾杯”</strong></p><div class="note note-danger">            <p>观前声明：博主能力有限，只做了misc部分。</p>          </div><h2 id="原赛"><a href="#原赛" class="headerlink" title="原赛"></a>原赛</h2><h3 id="llmlog"><a href="#llmlog" class="headerlink" title="llmlog"></a>llmlog</h3><p>下方可以下载题目附件哦⬇️</p><div class="note note-primary">            <p><strong>📥 题目附件下载</strong><br>文件名：llmlog.zip<br>大小：51 KB<br><a href="/download/llmlog.zip">点我下载</a></p>          </div><p>很简单又很恶心的一道题。说简单是因为这题就是按图索骥，答案连个字都不用改就明明白白写在那里；说难是因为干扰项太多，比较考验阅读理解能力。由于结果需要转换成MD5，稍有不慎，便谬之千里。</p><p>话不多说,上截图!</p><figure>  <img src="/img/屏幕截图 2026-01-13 005215.png">  <figcaption>如图所示,真的就是阅读理解</figcaption></figure><p>于是我们带着五个问题开始审查llm日志,分别在如下位置找到答案:</p><figure>  <img src="/img/屏幕截图 2026-01-13 011400.png">  <figcaption>攻击者第一次冒充系统用户询问的时间</figcaption></figure><figure>  <img src="/img/屏幕截图 2026-01-13 011446.png">  <figcaption>攻击者冒充后台管理用户询问的问题</figcaption></figure><figure>  <img src="/img/屏幕截图 2026-01-13 011829.png">  <figcaption>攻击者得知完整手机号的时间</figcaption></figure><figure>  <img src="/img/屏幕截图 2026-01-13 011908.png">  <figcaption>攻击者使用“特殊身份”询问得到回答的时间</figcaption></figure><figure>  <img src="/img/屏幕截图 2026-01-13 012311.png">  <figcaption>邮箱被查询到的次数,复制到VS Code中ctrl+F查询或者直接在记事本里手动计数,反正也不多</figcaption></figure><p>需要注意的小细节挺多，比如“系统用户”真的就是系统用户，不是“system”；攻击者冒充后台管理用户询问的问题一定要加“我是后台管理用户”这半句（当时就因为这个卡了好久）；遍历日志内容可以发现，攻击者先后获取了手机号的前七位和后四位，所以获取后四位时就已经得知完整密码了。而不是等到后来使用“金盾杯后台管理用户”这一“特殊身份”询问后才获知；输入法问题，等等。这道misc考验了审查大量数据的能力，也考验了我不断试错的耐心。</p><p>拿到五个问题的答案后就可以去赛博厨子那里获取flag啦🎉</p><figure>  <img src="/img/屏幕截图 2026-01-13 015025.png">  <figcaption>赞美伟大的赛博厨子！</figcaption></figure><p><strong>flag{1fcfbcd14f58c6b7add09ab13258ef14}</strong></p><h3 id="乱七八糟的意味"><a href="#乱七八糟的意味" class="headerlink" title="乱七八糟的意味"></a>乱七八糟的意味</h3><p>看到题目名称就有预感，出题人多少肯定带点。。不过个人很喜欢这道题，比赛期间给了我很大的满足感。</p><p>拿到附件先解压，直接开幕雷击：</p><figure>  <img src="/img/何意味.png">  <figcaption>何意味？</figcaption></figure><p>字都没显示完整，朋友你疑似有点过于明显了😓</p><p>扔进010看一眼果然有CRC校验错误</p><figure>  <img src="/img/屏幕截图 2025-12-20 144618.png">  <figcaption>正合我意</figcaption></figure><p>当时被llmlog磨灭了耐心，于是随波逐流一下直接生成修复宽高后的图片</p><figure>  <img src="/img/何意味-修复高宽.png">  <figcaption>无异味--随波逐流</figcaption></figure><p>下面露出来这一行，老实说我从来没见过，但第一眼就知道肯定是某种加密，第二眼发现好像都是wasd这四个字母，电脑玩家的DNA瞬间动了——这东西怕不是真和上下左右有关。</p><p>于是随手找来纸笔，随便取一个点为起点，按照w上s下a左d右，在纸上画线。</p><p>画出第一个数字的时候我就明白怎么回事了。就像这样👇</p><figure>  <img src="/img/08561549CE02B55F887C3BE23B813FF4.jpg">  <figcaption>当时随手画的，不好看但能证明解题过程百分百纯原创</figcaption></figure><p>于是得到压缩包密码为972561，成功解压。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>CTF</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>网安之路</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>你好，2026！</title>
     <link href="/2026/01/01/2026-new-year/"/>
     <url>/2026/01/01/2026-new-year/</url>
