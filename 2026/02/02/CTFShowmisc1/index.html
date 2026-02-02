@@ -19,21 +19,28 @@
   <meta name="author" content="Koyanrush">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Just write something...">
+    <meta name="description" content="题目来源：CTFShow misc2             题目描述：偶然发现我竟然还有个软盘，勾起了我的回忆。                          点我下载题目附件             解压附件得到file，根据题目描述，这应该是一个软盘文件。思路为用虚拟机挂载后再打开。 虚拟机创建方式不唯一，这里使用VMware Workstation Pro。 打开VMware，创建新的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CTFShowmisc1">
+<meta property="og:title" content="CTF刷题-misc（1）">
 <meta property="og:url" content="https://koyanrush.github.io/2026/02/02/CTFShowmisc1/index.html">
 <meta property="og:site_name" content="Koyan&#39;s World">
-<meta property="og:description" content="Just write something...">
+<meta property="og:description" content="题目来源：CTFShow misc2             题目描述：偶然发现我竟然还有个软盘，勾起了我的回忆。                          点我下载题目附件             解压附件得到file，根据题目描述，这应该是一个软盘文件。思路为用虚拟机挂载后再打开。 虚拟机创建方式不唯一，这里使用VMware Workstation Pro。 打开VMware，创建新的">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://koyanrush.github.io/img/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-02-02%20201850.png">
+<meta property="og:image" content="https://koyanrush.github.io/img/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-02-02%20202615.png">
+<meta property="og:image" content="https://koyanrush.github.io/img/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-02-02%20203054.png">
+<meta property="og:image" content="https://koyanrush.github.io/img/misc-%E4%BF%AE%E5%A4%8D%E9%AB%98%E5%AE%BD.png">
+<meta property="og:image" content="https://koyanrush.github.io/img/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-02-03%20003105.png">
 <meta property="article:published_time" content="2026-02-02T07:06:05.000Z">
-<meta property="article:modified_time" content="2026-02-02T07:06:05.597Z">
+<meta property="article:modified_time" content="2026-02-02T18:20:34.057Z">
 <meta property="article:author" content="Koyanrush">
+<meta property="article:tag" content="网安之路">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://koyanrush.github.io/img/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-02-02%20201850.png">
   
   
   
-  <title>CTFShowmisc1 - Koyan&#39;s World</title>
+  <title>CTF刷题-misc（1） - Koyan&#39;s World</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -203,7 +210,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="CTFShowmisc1"></span>
+            <span id="subtitle" data-typed-text="CTF刷题-misc（1）"></span>
           
         </div>
 
@@ -231,7 +238,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          1.9k 字
         
       </span>
     
@@ -242,7 +249,7 @@
         
         
         
-          1 分钟
+          16 分钟
         
       </span>
     
@@ -279,12 +286,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">CTFShowmisc1</h1>
+            <h1 id="seo-header">CTF刷题-misc（1）</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年2月2日 下午
+                    本文最后更新于 2026年2月3日 凌晨
                   
                 
               </p>
@@ -292,7 +299,139 @@
             
               <div class="markdown-body">
                 
-                
+                <p>题目来源：CTFShow</p>
+<h2 id="misc2"><a href="#misc2" class="headerlink" title="misc2"></a>misc2</h2><div class="note note-success">
+            <p>题目描述：偶然发现我竟然还有个软盘，勾起了我的回忆。</p>
+          </div>
+
+<div class="note note-primary">
+            <p><a href="/download/ffile.zip">点我下载题目附件</a></p>
+          </div>
+
+<p>解压附件得到file，根据题目描述，这应该是一个软盘文件。思路为用虚拟机挂载后再打开。</p>
+<p>虚拟机创建方式不唯一，这里使用VMware Workstation Pro。</p>
+<p>打开VMware，创建新的虚拟机，配置选自定义，操作系统选稍后安装操作系统，然后选其他，其余没提到的全都保持默认，直接下一步。</p>
+<figure>
+  <img src="/img/屏幕截图 2026-02-02 201850.png" srcset="/img/loading.gif" lazyload>
+  <figcaption>只是做简单的挂载，不用考虑太多</figcaption>
+</figure>
+
+<p>当画面变成上图这样时，依次点击自定义硬件 -&gt; 添加 -&gt; 软盘驱动器 -&gt; 完成，然后在右侧连接一栏中选使用软盘映像文件，通过浏览定位到file的位置，打开，完成。</p>
+<figure>
+  <img src="/img/屏幕截图 2026-02-02 202615.png" srcset="/img/loading.gif" lazyload>
+  <figcaption>注意右下角要选所有文件，不然找不到file</figcaption>
+</figure>
+
+<p>之后只要开启虚拟机就能看到flag了🎉</p>
+<figure>
+  <img src="/img/屏幕截图 2026-02-02 203054.png" srcset="/img/loading.gif" lazyload>
+  <figcaption>开机即食</figcaption>
+</figure>
+
+<p><strong>flag{ctfshow}</strong></p>
+<h2 id="miscx"><a href="#miscx" class="headerlink" title="miscx"></a>miscx</h2><div class="note note-primary">
+            <p><a href="/download/misc2.rar">点我下载题目附件</a></p>
+          </div>
+
+<p>拿到手是一个rar压缩文件，用Bandizip打开，看到两个加密的txt和一个misc1.zip，下方有两行提示</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs matlab"><span class="hljs-number">2020</span>快乐！<br><span class="hljs-built_in">rat</span>？or？<br></code></pre></td></tr></table></figure>
+
+<p>先单独解压出这个zip，点开看一下，里面有一个未加密的png和一个加密的doc文档。</p>
+<p>png图片CRC报错，修复后只是一句祝福语。末尾有一个flag{flag_1s_n0t_h3r3}，再就没东西了。这里一度怀疑哪里有遗漏，后来考虑到图片本身可能就是信息，结合2020快乐的提示，猜测doc文档密码为2020。成功解锁。</p>
+<figure>
+  <img src="/img/misc-修复高宽.png" srcset="/img/loading.gif" lazyload>
+  <figcaption>密码直接告诉你了不用？</figcaption>
+</figure>
+
+<p>文档的内容是这样一串</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf">♭‖♭‖‖♯♭♭♬‖♩♫‖♬∮♭♭¶♭‖♯‖¶♭♭‖∮‖‖♭‖§♭‖♬♪♭♯§‖‖♯‖‖♬‖‖♪‖‖♪‖¶§‖‖♬♭♯‖♭♯♪‖‖∮‖♬§♭‖‖‖♩♪‖‖♬♭♭♬‖♩♪‖♩¶‖♩♪‖♩♬‖¶§‖‖♩‖¶♫♭♭♩‖♬♯‖♬§♭‖♭‖♩¶‖‖∮♭♭♬‖‖♭‖♫§‖¶♫‖♩∮♭♭§‖♭§‖♭§§<span class="hljs-operator">=</span><br></code></pre></td></tr></table></figure>
+
+<p>想到音符解密，使用千千秀字提供的在线工具解码为</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf">U2FsdGVkX1/eK2855m8HM4cTq8Fquqtm6QDbcUu4F1yQpA<span class="hljs-operator">=</span><span class="hljs-operator">=</span> <br></code></pre></td></tr></table></figure>
+
+<div class="note note-danger">
+            <p>注：音符解密的在线工具现在已经无法使用了，当doc文档写的就是解密后的结果就行</p>
+          </div>
+
+<p>新的密文开头U2FsdGVkX1 是 CryptoJS 库默认的加密输出前缀，结合rat？or？的提示，推测是rabbit加密，密钥试试2020。</p>
+<p><a href="https://www.sojson.com/encrypt_rabbit.html" target="_blank">rabbit在线解密网站</a></p>
+<p>解密后得到</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">welcome_to_payhelp</span><br></code></pre></td></tr></table></figure>
+
+<p>用这个作为密码尝试解锁两个txt，只能解锁hint.txt。内容为</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs llvm">VmpKMFUxTXhXWGxVV<span class="hljs-number">0</span>dob<span class="hljs-number">1</span>RUSjRVVll<span class="hljs-number">3</span>V<span class="hljs-number">2</span>t<span class="hljs-number">0</span>aFJscDBZMGhLYTAxWGVIaFZiRkpUWWtaYVZWSnJXbFpOVjJoeVZYcEdZVkpzVG<span class="hljs-number">5</span>KVWJHaHBWa<span class="hljs-number">1</span>ZWZDFkV<span class="hljs-number">1</span>ZtRmtNRFZYVjJ<span class="hljs-number">4</span><span class="hljs-keyword">c</span><span class="hljs-number">2</span>FWSlVWbFJVVnpWdVRXeFZlV<span class="hljs-number">1</span>ZHVGxSaVZrWTBXVlJPYzFWR<span class="hljs-number">1</span>pFZFRiVGxYWW<span class="hljs-number">01</span>Q<span class="hljs-number">1</span>dGcEdXbE<span class="hljs-number">5</span>UUjBZMlVXMTBWMWRGU<span class="hljs-number">2</span>xkV<span class="hljs-number">1</span>ZtUXdVekpGZUZOWWJHaFRSVFZWV<span class="hljs-number">1</span>d<span class="hljs-number">0</span>YVMxTXhjRVZUYTFwc<span class="hljs-number">1</span>ZteHdlRlp<span class="hljs-number">0</span>ZERCV<span class="hljs-number">01</span>VcFlaRE<span class="hljs-number">53</span>V<span class="hljs-number">0</span>Zac<span class="hljs-number">2</span>NIWldSekZMVW<span class="hljs-number">1</span>zeFdWSnNTbWxXUjNodlZtMXdUMkl<span class="hljs-number">5</span>Vm<span class="hljs-number">5</span>OaVNGWnBVbXh<span class="hljs-number">3</span>YzFac<span class="hljs-number">1</span>VrZFNiRlY<span class="hljs-number">0</span>WVVkMFZXSlZXbmxWYlRWUFZsWlplbEZyWkZSaVJrcFFWV<span class="hljs-number">3</span>hGYkUwd<span class="hljs-number">1</span>VXeE<span class="hljs-number">5</span>NRkVsTTBRJTNE<br></code></pre></td></tr></table></figure>
+
+<p>经过不断尝试，经过六次base64解密后得到</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">welcome_to_2020</span>%<span class="hljs-number">0</span>Aflag%<span class="hljs-number">20</span>is%<span class="hljs-number">20</span>coming...%<span class="hljs-number">0</span>Athe%<span class="hljs-number">20</span>key%<span class="hljs-number">20</span>is%<span class="hljs-number">20</span>hello%<span class="hljs-number">202020</span>%<span class="hljs-number">21</span>Ü<br></code></pre></td></tr></table></figure>
+
+<p>再进行一次URL解密。得到如下内容</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs maxima">welcome_to_2020<br>flag <span class="hljs-built_in">is</span> coming...<br>the <span class="hljs-built_in">key</span> <span class="hljs-built_in">is</span> hello <span class="hljs-number">2020</span>!Ü<br></code></pre></td></tr></table></figure>
+
+<p>去掉末尾的乱码Ü，得到最后的key</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">hello</span> <span class="hljs-number">2020</span>!<br></code></pre></td></tr></table></figure>
+
+<p>用这个key解锁flag.txt,拿到flag。</p>
+<p><strong>flag{g00d_f0r_y0u}</strong></p>
+<h2 id="misc50"><a href="#misc50" class="headerlink" title="misc50"></a>misc50</h2><div class="note note-primary">
+            <p><a href="/download/welcome2.zip">点我下载题目附件</a></p>
+          </div>
+
+<p>解压附件后是一张png。老规矩，扔进010，翻到最后发现PK标志，于是查找50 4B 03 04定位PK文件头，在文件头附近位置发现IEND前有一段密文</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf"><span class="hljs-attribute">Sk5DVlM2Mk1NRjVIU1gyTk1GWEgyQ1E9Cg</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><br></code></pre></td></tr></table></figure>
+
+<p>base64一下得到</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf"><span class="hljs-attribute">JNCVS62MMF5HSX2NMFXH2CQ</span><span class="hljs-operator">=</span><br></code></pre></td></tr></table></figure>
+
+<p>全大写字母加上数字2-7，所以再base32一次，得到</p>
+<p><strong>KEY{Lazy_Man}</strong>，先留着，这是一会要用到的妙妙工具。</p>
+<p>回到010中，以刚才找到的PK文件头为新的起点，把从这开始的数据复制到一个新文件中并修改扩展名为.zip，打开，发现一个fbi.rar。</p>
+<p>用Bandizip打开，里面有一个flag.zip，并在下方发现了提示</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf"><span class="hljs-attribute">GEZDGNBVGYFA</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><br></code></pre></td></tr></table></figure>
+
+<p>base32一下得到<strong>123456</strong>。</p>
+<p>再打开flag.zip，是一个加密的thienc.txt。试试密码123456，还真对了，送分题这一块🔑</p>
+<p>这个txt的内容是一堆数字，这里截取前500位</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">30783337307837613078626330786166307832373078316330783030783430783462307862653078346430783162307830307866333078313430783030783030783030783030783030783732307830307830307830307830307830307830307830307834643078343830783461307832373078613078633530783732307836313078653130783939307861623078346430783939307832373078383930783738307838633078643030783262307861613078316530786630307837643078366430783339307866353078633530783533307832333078656230786363307835323078363330783862307832343078336530786466307864613078<br></code></pre></td></tr></table></figure>
+
+<p>观察一下发现这堆数字的规律是3078xxxx3078xxxx这样的，3078在ASCII码中表示0x，说明这其实是一堆十六进制的数据。</p>
+<p>直接把txt的内容复制到CyberChef，用From Hex就可以把数据转换成0x形式。再用一次From Hex，就能翻译出我们熟悉的内容。</p>
+<figure>
+  <img src="/img/屏幕截图 2026-02-03 003105.png" srcset="/img/loading.gif" lazyload>
+  <figcaption>赛博厨子的恩情还不完</figcaption>
+</figure>
+
+<p>这里能看出文件头为7z，直接用网站自带的保存功能将转化后的数据保存为一个.7z文件，用Bandizip打开。里面是个加密的txt。</p>
+<p>这时候就用到之前的妙妙工具了，输入 <strong>KEY{Lazy_Man}</strong> 打开txt，又出来一堆东西，足足有10598200个字符😰</p>
+<p>不惯着它，看到Sk开头，&#x3D;&#x3D;结尾，直接base64加base32一套丝滑小连招…吗？</p>
+<p>根本带不走！试了好久都没结果，用ai也干不出来，您猜怎么着，这玩意要解密15次才能出结果：</p>
+<p>base64 -&gt; base32 -&gt; base32 -&gt; base32 -&gt; base32-&gt; base64 -&gt; base32 -&gt; base32 -&gt; base32 -&gt;base32 -&gt; base64 -&gt; base32 -&gt; base32 -&gt; base32 -&gt; base32</p>
+<p>这么大数量还是别为难赛博厨子了，祭出脚本！</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">import</span> base64<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">solve_crypto</span>(<span class="hljs-params">file_path</span>):<br>    <span class="hljs-keyword">try</span>:<br>        <span class="hljs-comment"># 读取原始文件内容</span><br>        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(file_path, <span class="hljs-string">&#x27;r&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>            data = f.read().strip()<br><br>        <span class="hljs-comment"># 定义循环结构：3次大循环</span><br>        <span class="hljs-comment"># 每次大循环包含：1次 Base64 + 4次 Base32</span><br>        <span class="hljs-keyword">for</span> big_loop <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>):<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;正在进行第 <span class="hljs-subst">&#123;big_loop + <span class="hljs-number">1</span>&#125;</span> 组大循环解密...&quot;</span>)<br>            <br>            <span class="hljs-comment"># 1. 解码 Base64</span><br>            <span class="hljs-comment"># 加上 padding 处理，防止因格式问题报错</span><br>            missing_padding = <span class="hljs-built_in">len</span>(data) % <span class="hljs-number">4</span><br>            <span class="hljs-keyword">if</span> missing_padding:<br>                data += <span class="hljs-string">&#x27;=&#x27;</span> * (<span class="hljs-number">4</span> - missing_padding)<br>            data = base64.b64decode(data).decode(<span class="hljs-string">&#x27;utf-8&#x27;</span>, errors=<span class="hljs-string">&#x27;ignore&#x27;</span>).strip()<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;  - Base64 解码完成&quot;</span>)<br><br>            <span class="hljs-comment"># 2. 解码 4次 Base32</span><br>            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">4</span>):<br>                <span class="hljs-comment"># Base32 同样处理 padding</span><br>                missing_padding = <span class="hljs-built_in">len</span>(data) % <span class="hljs-number">8</span><br>                <span class="hljs-keyword">if</span> missing_padding:<br>                    data += <span class="hljs-string">&#x27;=&#x27;</span> * (<span class="hljs-number">8</span> - missing_padding)<br>                data = base64.b32decode(data).decode(<span class="hljs-string">&#x27;utf-8&#x27;</span>, errors=<span class="hljs-string">&#x27;ignore&#x27;</span>).strip()<br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;  - 第 <span class="hljs-subst">&#123;i + <span class="hljs-number">1</span>&#125;</span> 层 Base32 解码完成&quot;</span>)<br><br>        <span class="hljs-comment"># 将最终结果保存</span><br>        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;flag_decoded.txt&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>            f.write(data)<br>        <br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n[成功] 所有15层解密完成！结果已保存至 flag_decoded.txt&quot;</span>)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;预览前50个字符:&quot;</span>, data[:<span class="hljs-number">50</span>])<br><br>    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;\n[错误] 解密过程中出现问题: <span class="hljs-subst">&#123;e&#125;</span>&quot;</span>)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;请检查数据格式或循环层数是否准确。&quot;</span>)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    <span class="hljs-comment"># 确保 secenc.txt 与脚本在同一目录下</span><br>    solve_crypto(<span class="hljs-string">&#x27;secenc.txt&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>运行后得到flag_decoded.txt，是一堆由 <strong>.?!</strong> 组成的东西，这是<strong>OoK!语言</strong>，而且是<strong>Short Ook!</strong>。既然识别出了加密方式，就乘胜追击使用在线工具解决。</p>
+<p>在此之前为了确保Short Ook!格式正确，要祭出第二个脚本清洗数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-comment"># 读取你的原始符号文件</span><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;flag_decoded.txt&#x27;</span>, <span class="hljs-string">&#x27;r&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>    content = f.read()<br><br><span class="hljs-comment"># 去除所有换行符、回车符以及空格</span><br>clean_content = content.replace(<span class="hljs-string">&#x27;\n&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>).replace(<span class="hljs-string">&#x27;\r&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>).replace(<span class="hljs-string">&#x27; &#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)<br><br><span class="hljs-comment"># 将清洗后的纯符号保存</span><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;clean_ook.txt&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>    f.write(clean_content)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;清洗完成！共处理 <span class="hljs-subst">&#123;<span class="hljs-built_in">len</span>(clean_content)&#125;</span> 个符号。&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>清洗后得到clean_ook.txt，复制里面所有内容到在线网站</p>
+<p><a href="https://tool.bugku.com/brainfuck/?wafcloud=1" target="_blank">戳我直达</a></p>
+<p>先进行一次Ook! to Text，得到</p>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs Brainfuck"><span class="hljs-literal">+++++</span> <span class="hljs-literal">+++++</span> <span class="hljs-title">[</span><span class="hljs-literal">-</span>&gt;<span class="hljs-literal">++</span> <span class="hljs-literal">+++++</span> <span class="hljs-literal">+++</span>&lt;<span class="hljs-title">]</span> &gt;<span class="hljs-literal">++</span><span class="hljs-string">.</span><span class="hljs-literal">+</span> <span class="hljs-literal">+++++</span> <span class="hljs-string">.</span>&lt;<span class="hljs-literal">+++</span> <span class="hljs-title">[</span><span class="hljs-literal">-</span>&gt;<span class="hljs-literal">--</span> <span class="hljs-literal">-</span>&lt;<span class="hljs-title">]</span>&gt;<span class="hljs-literal">-</span> <span class="hljs-literal">-</span><span class="hljs-string">.</span><span class="hljs-literal">+++</span> <span class="hljs-literal">+++</span><span class="hljs-string">.</span>&lt;<br><span class="hljs-literal">++++</span><span class="hljs-title">[</span> <span class="hljs-literal">-</span>&gt;<span class="hljs-literal">+++</span> <span class="hljs-literal">+</span>&lt;<span class="hljs-title">]</span>&gt;<span class="hljs-literal">+</span> <span class="hljs-literal">+++</span><span class="hljs-string">.</span>&lt; <span class="hljs-literal">+++++</span> <span class="hljs-literal">+</span><span class="hljs-title">[</span><span class="hljs-literal">-</span>&gt;<span class="hljs-literal">-</span> <span class="hljs-literal">-----</span> &lt;<span class="hljs-title">]</span>&gt;<span class="hljs-string">.</span>&lt; <span class="hljs-literal">+++</span><span class="hljs-title">[</span><span class="hljs-literal">-</span> &gt;<span class="hljs-literal">+++</span>&lt; <span class="hljs-title">]</span>&gt;<span class="hljs-literal">+++</span> <span class="hljs-literal">++</span><span class="hljs-string">.</span><span class="hljs-literal">++</span><br><span class="hljs-literal">+++++</span> <span class="hljs-string">.</span><span class="hljs-literal">----</span> <span class="hljs-literal">-----</span> <span class="hljs-string">.</span>&lt;<span class="hljs-literal">+++</span> <span class="hljs-literal">++++</span><span class="hljs-title">[</span> <span class="hljs-literal">-</span>&gt;<span class="hljs-literal">---</span> <span class="hljs-literal">----</span>&lt; <span class="hljs-title">]</span>&gt;<span class="hljs-literal">--</span><span class="hljs-string">.</span> &lt;<span class="hljs-literal">++++</span> <span class="hljs-literal">+++</span><span class="hljs-title">[</span><span class="hljs-literal">-</span> &gt;<span class="hljs-literal">++++</span> <span class="hljs-literal">+++</span>&lt;<span class="hljs-title">]</span><br>&gt;<span class="hljs-literal">++++</span> <span class="hljs-literal">+++++</span> <span class="hljs-literal">+++</span><span class="hljs-string">.</span><span class="hljs-literal">-</span> <span class="hljs-literal">-----</span> <span class="hljs-literal">--</span><span class="hljs-string">.</span><span class="hljs-literal">--</span> <span class="hljs-literal">----</span><span class="hljs-string">.</span> &lt;<span class="hljs-literal">++++</span> <span class="hljs-title">[</span><span class="hljs-literal">-</span>&gt;<span class="hljs-literal">++</span> <span class="hljs-literal">++</span>&lt;<span class="hljs-title">]</span>&gt; <span class="hljs-literal">+++++</span> <span class="hljs-string">.</span>&lt;<span class="hljs-literal">+++</span> <span class="hljs-literal">+++</span><span class="hljs-title">[</span><span class="hljs-literal">-</span><br>&gt;<span class="hljs-literal">----</span> <span class="hljs-literal">--</span>&lt;<span class="hljs-title">]</span>&gt; <span class="hljs-literal">-</span><span class="hljs-string">.</span>&lt;<span class="hljs-literal">++</span> <span class="hljs-literal">++</span><span class="hljs-title">[</span><span class="hljs-literal">-</span>&gt; <span class="hljs-literal">++++</span>&lt; <span class="hljs-title">]</span>&gt;<span class="hljs-string">.</span><span class="hljs-literal">++</span> <span class="hljs-literal">++</span><span class="hljs-string">.</span>&lt;<span class="hljs-literal">+</span> <span class="hljs-literal">++</span><span class="hljs-title">[</span><span class="hljs-literal">-</span>&gt; <span class="hljs-literal">---</span>&lt;<span class="hljs-title">]</span> &gt;<span class="hljs-literal">----</span> <span class="hljs-literal">--</span><span class="hljs-string">.</span>&lt;<span class="hljs-literal">+</span> <span class="hljs-literal">+++</span><span class="hljs-title">[</span><span class="hljs-literal">-</span><br>&gt;<span class="hljs-literal">++++</span> &lt;<span class="hljs-title">]</span>&gt;<span class="hljs-literal">++</span> <span class="hljs-string">.</span><span class="hljs-literal">----</span> <span class="hljs-literal">---</span><span class="hljs-string">.</span>&lt; <span class="hljs-literal">+++++</span> <span class="hljs-literal">+</span><span class="hljs-title">[</span><span class="hljs-literal">-</span>&gt;<span class="hljs-literal">-</span> <span class="hljs-literal">-----</span> &lt;<span class="hljs-title">]</span>&gt;<span class="hljs-literal">--</span> <span class="hljs-literal">-----</span> <span class="hljs-literal">-</span><span class="hljs-string">.</span>&lt;<span class="hljs-literal">++</span> <span class="hljs-literal">+++++</span> <span class="hljs-title">[</span><span class="hljs-literal">-</span>&gt;<span class="hljs-literal">++</span><br><span class="hljs-literal">+++++</span> &lt;<span class="hljs-title">]</span>&gt;<span class="hljs-literal">++</span> <span class="hljs-literal">++</span><span class="hljs-string">.</span><span class="hljs-literal">++</span> <span class="hljs-literal">+++++</span> <span class="hljs-string">.</span><span class="hljs-literal">++++</span> <span class="hljs-literal">++++</span><span class="hljs-string">.</span> &lt;<span class="hljs-literal">++++</span> <span class="hljs-literal">+++++</span> <span class="hljs-title">[</span><span class="hljs-literal">-</span>&gt;<span class="hljs-literal">--</span> <span class="hljs-literal">-----</span> <span class="hljs-literal">--</span>&lt;<span class="hljs-title">]</span>&gt; <span class="hljs-literal">-----</span><br><span class="hljs-string">.</span>&lt;<span class="hljs-literal">+++</span> <span class="hljs-literal">+++++</span> <span class="hljs-literal">+</span><span class="hljs-title">[</span><span class="hljs-literal">-</span>&gt;<span class="hljs-literal">+</span> <span class="hljs-literal">+++++</span> <span class="hljs-literal">+++</span>&lt;<span class="hljs-title">]</span> &gt;<span class="hljs-literal">++++</span> <span class="hljs-literal">+++++</span> <span class="hljs-literal">++</span><span class="hljs-string">.</span>&lt;<br></code></pre></td></tr></table></figure>
+
+<p>这是Brainfuck，所以再用一次Brainfuck to Text，拿到flag。</p>
+<p><strong>flag{Welc0me_tO_cTf_3how!}</strong></p>
+<h2 id="stega1"><a href="#stega1" class="headerlink" title="stega1"></a>stega1</h2><div class="note note-primary">
+            <p><a href="/download/f.zip">点我下载题目附件</a></p>
+          </div>
+
+<p>一张相当干净的jpg图片，无论是图片属性图片结构还是图片内容都干净得无可挑剔，Steghide和Outguess也查不出有用的数据</p>
+<p>这时候我们需要请出jpg内部隐写杀的手锏-JPHS，它专门针对 JPEG 的 DCT（离散余弦变换） 系数进行操作，经JPHS处理过的信息隐蔽性极高，binwalk 和普通的 strings 根本检测不到。这里直接分享出这个工具⬇️</p>
+<div class="note note-warning">
+            <p><a href="/download/jphs_05.zip">JPHS下载</a></p>
+          </div>
+
+<p>双击启动Jphswin.exe，在open jpeg中打开jpg图片，就可以进行信息的隐藏和提取。本题中直接点seek，不用输入任何东西直接点OK，然后随便起个文件名，保存为txt后打开即可看到flag。</p>
+<p><strong>flag{3c87fb959e5910b40a04e0491bf230fb}</strong></p>
+
                 
               </div>
             
@@ -300,6 +439,34 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%BD%91%E5%AE%89%E4%B9%8B%E8%B7%AF/" class="print-no-link">#网安之路</a>
+      
+    </div>
   
 </div>
 
@@ -309,7 +476,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>CTFShowmisc1</div>
+      <div>CTF刷题-misc（1）</div>
       <div>https://koyanrush.github.io/2026/02/02/CTFShowmisc1/</div>
     </div>
     <div class="license-meta">
