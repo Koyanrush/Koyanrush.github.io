@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://koyanrush.github.io/img/0.jpg">
 <meta property="article:published_time" content="2026-01-11T08:45:15.000Z">
-<meta property="article:modified_time" content="2026-01-12T18:52:32.451Z">
+<meta property="article:modified_time" content="2026-02-02T06:59:43.875Z">
 <meta property="article:author" content="Koyanrush">
 <meta property="article:tag" content="网安之路">
 <meta name="twitter:card" content="summary_large_image">
@@ -234,7 +234,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          902 字
+          3.8k 字
         
       </span>
     
@@ -245,7 +245,7 @@
         
         
         
-          8 分钟
+          32 分钟
         
       </span>
     
@@ -287,7 +287,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年1月13日 凌晨
+                    本文最后更新于 2026年2月2日 下午
                   
                 
               </p>
@@ -349,7 +349,12 @@
 </figure>
 
 <p><strong>flag{1fcfbcd14f58c6b7add09ab13258ef14}</strong></p>
-<h3 id="乱七八糟的意味"><a href="#乱七八糟的意味" class="headerlink" title="乱七八糟的意味"></a>乱七八糟的意味</h3><p>看到题目名称就有预感，出题人多少肯定带点..不过个人很喜欢这道题，比赛期间给了我很大的满足感。</p>
+<h3 id="乱七八糟的意味"><a href="#乱七八糟的意味" class="headerlink" title="乱七八糟的意味"></a>乱七八糟的意味</h3><p>下方可以下载题目附件哦⬇️</p>
+<div class="note note-primary">
+            <p><strong>📥 题目附件下载</strong><br>文件名：附件.zip<br>大小：10726 KB<br><a href="/download/%E9%99%84%E4%BB%B6.zip">点我下载</a></p>
+          </div>
+
+<p>看到题目名称就有预感，出题人多少肯定带点..不过个人很喜欢这道题，比赛期间给了我很大的满足感。</p>
 <p>拿到附件先解压，直接开幕雷击：</p>
 <figure>
   <img src="/img/何意味_fixed_display.png" srcset="/img/loading.gif" lazyload>
@@ -378,7 +383,171 @@
 </figure>
 
 <p>于是得到压缩包密码为972561，成功解压。</p>
+<p>解压完成后得到两个文件：一个不知道是啥的高雅人士请打开，先扔一边；一张png图片，叫孩子们还认得出我吗</p>
+<figure>
+  <img src="/img/孩子们还认得出我吗.png" srcset="/img/loading.gif" lazyload>
+  <figcaption>化成灰都认识</figcaption>
+</figure>
 
+<p>简单看一下结构，没啥问题。用Stegsolve进行位平面切片分析，在图像 RGB 通道的 LSB中发现了提示信息</p>
+<figure>
+  <img src="/img/屏幕截图 2026-02-01 221231.png" srcset="/img/loading.gif" lazyload>
+  <figcaption>红绿蓝三个通道都勾选0即可出现信息</figcaption>
+</figure>
+
+<p>这句英文（arnoldarnoldarnold,all parameters are set to 1）中，arnold提示我们是阿诺德猫脸变换，重复三次的意思就是要进行三次变换。很明显，这张图是被事先处理过的，只要按照提示给图片还原过来应该就能看到信息。在阿诺德变换的算法中，涉及到a和b两个参数。提示中说all parameters are set to 1，意思是所有参数都设置为1。由是，我们可以写出还原脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><span class="hljs-keyword">import</span> os<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">recover_arnold</span>(<span class="hljs-params">image_path, iterations=<span class="hljs-number">3</span></span>):<br>    <span class="hljs-comment"># 1. 加载图像</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.exists(image_path):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;找不到文件: <span class="hljs-subst">&#123;image_path&#125;</span>&quot;</span>)<br>        <span class="hljs-keyword">return</span><br><br>    img = Image.<span class="hljs-built_in">open</span>(image_path).convert(<span class="hljs-string">&#x27;RGB&#x27;</span>)<br>    img_array = np.array(img)<br>    <br>    <span class="hljs-comment"># 获取图像尺寸 (假设是正方形 N x N)</span><br>    height, width, channels = img_array.shape<br>    <span class="hljs-keyword">if</span> height != width:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;警告：图像不是正方形 (<span class="hljs-subst">&#123;width&#125;</span>x<span class="hljs-subst">&#123;height&#125;</span>)，变换可能不符合标准阿诺德映射。&quot;</span>)<br>    <br>    N = height<br>    current_array = img_array.copy()<br><br>    <span class="hljs-comment"># 创建保存结果的目录</span><br>    output_dir = os.path.join(os.path.dirname(image_path), <span class="hljs-string">&quot;recovery_results&quot;</span>)<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.exists(output_dir):<br>        os.makedirs(output_dir)<br><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;开始尝试逆变换，结果将保存在: <span class="hljs-subst">&#123;output_dir&#125;</span>&quot;</span>)<br><br>    <span class="hljs-comment"># 2. 迭代逆变换</span><br>    <span class="hljs-comment"># 逆矩阵为 [[2, -1], [-1, 1]]</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, iterations + <span class="hljs-number">1</span>):<br>        new_array = np.zeros_like(current_array)<br>        <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(N):<br>            <span class="hljs-keyword">for</span> y <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(N):<br>                <span class="hljs-comment"># Arnold 逆变换公式</span><br>                nx = (<span class="hljs-number">2</span> * x - <span class="hljs-number">1</span> * y) % N<br>                ny = (-<span class="hljs-number">1</span> * x + <span class="hljs-number">1</span> * y) % N<br>                new_array[nx, ny] = current_array[x, y]<br>        <br>        current_array = new_array.copy()<br>        <br>        <span class="hljs-comment"># 保存每一轮的结果</span><br>        res_img = Image.fromarray(current_array)<br>        save_path = os.path.join(output_dir, <span class="hljs-string">f&quot;recovered_step_<span class="hljs-subst">&#123;i&#125;</span>.png&quot;</span>)<br>        res_img.save(save_path)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;第 <span class="hljs-subst">&#123;i&#125;</span> 次逆变换结果已保存。&quot;</span>)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    file_path = <span class="hljs-string">r&quot;你的图片的实际路径&quot;</span><br>    <span class="hljs-comment"># 默认尝试 3 次（对应提示词 arnold 出现了 3 次）</span><br>    recover_arnold(file_path, iterations=<span class="hljs-number">3</span>)<br></code></pre></td></tr></table></figure>
+
+<p>有个小细节要注意，我们要对图片做逆变换来还原，因为原图实际上是被正向变换处理过的。不知道正逆也没关系，那就都试试，看哪个还原对了就是那个[doge]，顺带一提，由于该变换具有周期性，正向一定次数也可以正确还原哦❤️</p>
+<p>有关阿诺德变换的具体原理，感兴趣的话可以自行搜索学习，这里就不作解释啦~</p>
+<p>运行脚本后成功得到了清晰的图片，仔细观察可以发现图中的密码👁️</p>
+<figure>
+  <img src="/img/recovered_step_1.png" srcset="/img/loading.gif" lazyload>
+  <figcaption>注意大小写</figcaption>
+</figure>
+
+<p>密码为VCp@ssw0rd114514!@#  这个密码有什么用呢？唉🤓，注意到文件夹名称为do you know VeraCrypt，这不就是提示吗。</p>
+<p>于是我们安装一个VeraCrypt，了解到它是一款开源磁盘加密软件，这下就好办了。刚刚的高雅人士请打开显然就是用这东西加密的。</p>
+<p>打开VeraCrypt，点击选择文件，找到高雅人士请打开，打开，然后随便选个盘符，点击加载，就会弹出输入密码的弹窗。输入VCp@ssw0rd114514!@#并点击确定，之后你就能在此电脑中找到你刚才选的盘了。</p>
+<div style="display: flex; justify-content: space-between; gap: 10px;">
+  <div style="flex: 1;">
+    <img src="/img/8749A99BA040552F8EBCDFFA7B4BB4E3.jpg" srcset="/img/loading.gif" lazyload style="width: 100%; border-radius: 8px;">
+    <p style="text-align: center; font-size: 0.8em;">VeraCrypt似乎无法被截屏，所以就直接拍屏了</p>
+  </div>
+  <div style="flex: 1;">
+    <img src="/img/DFA58F65B747776B84C05C194CD9FC64.jpg" srcset="/img/loading.gif" lazyload style="width: 100%; border-radius: 8px;">
+    <p style="text-align: center; font-size: 0.8em;">凑合着看吧喵喵喵</p>
+  </div>
+</div>
+
+<p>打开这个盘更是两眼一黑</p>
+<figure>
+  <img src="/img/屏幕截图 2026-02-01 232323.png" srcset="/img/loading.gif" lazyload>
+  <figcaption>还有暗广</figcaption>
+</figure>
+
+<p>检查一番发现只有67号图片的大小是106KB，比其他的大了1KB，所以我们着重分析这张图片。放进010一看，原来末尾附加了一张png。</p>
+<figure>
+  <img src="/img/屏幕截图 2026-02-01 232747.png" srcset="/img/loading.gif" lazyload>
+  <figcaption>找到你啦</figcaption>
+</figure>
+
+<p>用binwalk或者foremost分离出这张png</p>
+<figure>
+  <img src="/img/Untitled1.png" srcset="/img/loading.gif" lazyload>
+  <figcaption>你的身份是...</figcaption>
+</figure>
+
+<p>这不是残缺的二维码，而是残缺的Data Matrix码。由于左侧L形部分完好，随便找个在线网站就能扫出来</p>
+<figure>
+  <img src="/img/屏幕截图 2026-02-01 233734.png" srcset="/img/loading.gif" lazyload>
+  <figcaption>拿下！</figcaption>
+</figure>
+
+<p><strong>flag{Y0u_@r3_gOOOOOOd_4t_m15c}</strong></p>
+<h2 id="重赛"><a href="#重赛" class="headerlink" title="重赛"></a>重赛</h2><h3 id="签到"><a href="#签到" class="headerlink" title="签到"></a>签到</h3><figure>
+  <img src="/img/image-538.png" srcset="/img/loading.gif" lazyload>
+  <figcaption>如图所示</figcaption>
+</figure>
+
+<p>没啥说的，看见Zmxh一眼base64，赛博厨子直接带走</p>
+<p><strong>flag{fb243025-d204-4eda-b3dc-50fefa1089fd}</strong></p>
+<h3 id="英勇投弹手"><a href="#英勇投弹手" class="headerlink" title="英勇投弹手"></a>英勇投弹手</h3><p>下方可以下载题目附件哦⬇️</p>
+<div class="note note-primary">
+            <p><strong>📥 题目附件下载</strong><br>文件名：英勇投弹手.zip<br>大小：14 KB<br><a href="/download/%E8%8B%B1%E5%8B%87%E6%8A%95%E5%BC%B9%E6%89%8B.zip">点我下载</a></p>
+          </div>
+
+<p>所有文件全加密，密码半天没找出来，以为漏了提示，结果就是直接爆破😓</p>
+<p>那么我将拿出对密码爆破神器-ARCHPR 4.54</p>
+<p>加载附件里的压缩包后直接弹出提示，要用担保WinZip恢复，5分钟左右就能爆出密码</p>
+<figure>
+  <img src="/img/屏幕截图 2026-02-02 000746.png" srcset="/img/loading.gif" lazyload>
+  <figcaption>想出这密码的家里请谁都没用了</figcaption>
+</figure>
+
+<p>成功解锁后我们挨个检查这些文件，发现它们似乎是一个网页小游戏飞机大战的组成部分。png图片很干净，css正常，html网页除了开始不了游戏以外也没啥问题（不影响做题）。着重检查js源码，感觉这个core.js相当奇怪。继续审查，作为游戏框架的game.js引入了player.js，bullet.js等其他几个js源码，唯独没提到core.js。这就说明core.js有问题。</p>
+<figure>
+  <img src="/img/屏幕截图 2026-02-02 002655.png" srcset="/img/loading.gif" lazyload>
+  <figcaption>通过这一段可知core.js不属于游戏本身</figcaption>
+</figure>
+
+<p>观察core.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript">(<span class="hljs-keyword">function</span> (<span class="hljs-params">_0x308471, _0x5643fe</span>) &#123;<br>    <span class="hljs-keyword">const</span> _0x5a606a = _0x2460, _0x33a4a5 = <span class="hljs-title function_">_0x308471</span>();<br>    <span class="hljs-keyword">while</span> (!![]) &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-keyword">const</span> _0x2afb4f = <span class="hljs-built_in">parseInt</span>(<span class="hljs-title function_">_0x5a606a</span>(<span class="hljs-number">0x1b3</span>)) / (-<span class="hljs-number">0x19c</span> * -<span class="hljs-number">0xd</span> + -<span class="hljs-number">0xe77</span> + -<span class="hljs-number">0x674</span>) * (-<span class="hljs-built_in">parseInt</span>(<span class="hljs-title function_">_0x5a606a</span>(<span class="hljs-number">0x1b7</span>)) / (<span class="hljs-number">0xb5</span> * <span class="hljs-number">0x5</span> + <span class="hljs-number">0x133f</span> + -<span class="hljs-number">0x2</span> * <span class="hljs-number">0xb63</span>)) + -<span class="hljs-built_in">parseInt</span>(<span class="hljs-title function_">_0x5a606a</span>(<span class="hljs-number">0x1ba</span>)) / (-<span class="hljs-number">0x2644</span> + -<span class="hljs-number">0x68b</span> + <span class="hljs-number">0x2cd2</span>) + <span class="hljs-built_in">parseInt</span>(<span class="hljs-title function_">_0x5a606a</span>(<span class="hljs-number">0x1bf</span>)) / (<span class="hljs-number">0x66</span> + <span class="hljs-number">0x46d</span> + -<span class="hljs-number">0x4cf</span>) + <span class="hljs-built_in">parseInt</span>(<span class="hljs-title function_">_0x5a606a</span>(<span class="hljs-number">0x1b5</span>)) / (-<span class="hljs-number">0x32e</span> + <span class="hljs-number">0x2683</span> + -<span class="hljs-number">0x2350</span>) + <span class="hljs-built_in">parseInt</span>(<span class="hljs-title function_">_0x5a606a</span>(<span class="hljs-number">0x1b4</span>)) / (<span class="hljs-number">0x513</span> * <span class="hljs-number">0x1</span> + <span class="hljs-number">0x1cce</span> + -<span class="hljs-number">0x1b</span> * <span class="hljs-number">0x141</span>) + <span class="hljs-built_in">parseInt</span>(<span class="hljs-title function_">_0x5a606a</span>(<span class="hljs-number">0x1bb</span>)) / (<span class="hljs-number">0x1710</span> + <span class="hljs-number">0x638</span> + -<span class="hljs-number">0x1</span> * <span class="hljs-number">0x1d41</span>) + -<span class="hljs-built_in">parseInt</span>(<span class="hljs-title function_">_0x5a606a</span>(<span class="hljs-number">0x1bd</span>)) / (<span class="hljs-number">0x19</span> * <span class="hljs-number">0x105</span> + -<span class="hljs-number">0xe</span> * <span class="hljs-number">0x193</span> + -<span class="hljs-number">0x36b</span>);<br>            <span class="hljs-keyword">if</span> (_0x2afb4f === _0x5643fe)<br>                <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">else</span><br>                _0x33a4a5[<span class="hljs-string">&#x27;push&#x27;</span>](_0x33a4a5[<span class="hljs-string">&#x27;shift&#x27;</span>]());<br>        &#125; <span class="hljs-keyword">catch</span> (_0x5220d0) &#123;<br>            _0x33a4a5[<span class="hljs-string">&#x27;push&#x27;</span>](_0x33a4a5[<span class="hljs-string">&#x27;shift&#x27;</span>]());<br>        &#125;<br>    &#125;<br>&#125;(_0x2f3d, -<span class="hljs-number">0x9dc5</span> + <span class="hljs-number">0xf</span> * <span class="hljs-number">0x18fc</span> + <span class="hljs-number">0x49c84</span>));<br><span class="hljs-keyword">let</span> k = <span class="hljs-number">0x166c</span> + -<span class="hljs-number">0x7</span> * -<span class="hljs-number">0x4cf</span> + -<span class="hljs-number">0x1</span> * <span class="hljs-number">0x357b</span>;<br><span class="hljs-keyword">function</span> <span class="hljs-title function_">_0x2460</span>(<span class="hljs-params">_0x111017, _0x5efafa</span>) &#123;<br>    <span class="hljs-keyword">const</span> _0x2f1f50 = <span class="hljs-title function_">_0x2f3d</span>();<br>    <span class="hljs-keyword">return</span> _0x2460 = <span class="hljs-keyword">function</span> (<span class="hljs-params">_0x2f7d39, _0x466e46</span>) &#123;<br>        _0x2f7d39 = _0x2f7d39 - (<span class="hljs-number">0x256e</span> + -<span class="hljs-number">0x1a4d</span> + -<span class="hljs-number">0x96e</span> * <span class="hljs-number">0x1</span>);<br>        <span class="hljs-keyword">let</span> _0x2b3801 = _0x2f1f50[_0x2f7d39];<br>        <span class="hljs-keyword">return</span> _0x2b3801;<br>    &#125;, <span class="hljs-title function_">_0x2460</span>(_0x111017, _0x5efafa);<br>&#125;<br><span class="hljs-keyword">function</span> <span class="hljs-title function_">core</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">const</span> _0x47b80f = _0x2460, _0x3074a9 = &#123;<br>            <span class="hljs-string">&#x27;gFKKr&#x27;</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">_0xe55803, _0xa329bf</span>) &#123;<br>                <span class="hljs-keyword">return</span> _0xe55803 === _0xa329bf;<br>            &#125;,<br>            <span class="hljs-string">&#x27;HPqhV&#x27;</span>: <span class="hljs-title function_">_0x47b80f</span>(<span class="hljs-number">0x1b6</span>) + <span class="hljs-title function_">_0x47b80f</span>(<span class="hljs-number">0x1b8</span>) + <span class="hljs-title function_">_0x47b80f</span>(<span class="hljs-number">0x1be</span>) + <span class="hljs-string">&#x27;a3&#x27;</span><br>        &#125;;<br>    <span class="hljs-keyword">if</span> (_0x3074a9[<span class="hljs-title function_">_0x47b80f</span>(<span class="hljs-number">0x1b9</span>)](k, -<span class="hljs-number">0x295</span> * <span class="hljs-number">0xf</span> + -<span class="hljs-number">0x1</span> * <span class="hljs-number">0x134b</span> + -<span class="hljs-number">0x1</span> * -<span class="hljs-number">0x41ef</span>))<br>        <span class="hljs-keyword">return</span> _0x3074a9[<span class="hljs-title function_">_0x47b80f</span>(<span class="hljs-number">0x1bc</span>)];<br>&#125;<br><span class="hljs-keyword">function</span> <span class="hljs-title function_">_0x2f3d</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">const</span> _0x239d05 = [<br>        <span class="hljs-string">&#x27;3088265aLnAAu&#x27;</span>,<br>        <span class="hljs-string">&#x27;873bf00c57&#x27;</span>,<br>        <span class="hljs-string">&#x27;25372BhvWzP&#x27;</span>,<br>        <span class="hljs-string">&#x27;7c3f7bbf99&#x27;</span>,<br>        <span class="hljs-string">&#x27;gFKKr&#x27;</span>,<br>        <span class="hljs-string">&#x27;821466gZMlek&#x27;</span>,<br>        <span class="hljs-string">&#x27;2569812BGsTZj&#x27;</span>,<br>        <span class="hljs-string">&#x27;HPqhV&#x27;</span>,<br>        <span class="hljs-string">&#x27;4040648FCWnre&#x27;</span>,<br>        <span class="hljs-string">&#x27;76849b468b&#x27;</span>,<br>        <span class="hljs-string">&#x27;1006744yccwII&#x27;</span>,<br>        <span class="hljs-string">&#x27;25COywAc&#x27;</span>,<br>        <span class="hljs-string">&#x27;1304166xohEjZ&#x27;</span><br>    ];<br>    _0x2f3d = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-keyword">return</span> _0x239d05;<br>    &#125;;<br>    <span class="hljs-keyword">return</span> <span class="hljs-title function_">_0x2f3d</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这是一个Obfuscator.io 混淆脚本，目的就是让代码变得极度难以阅读，但功能不变。前面那堆看不懂的东西可以不管，真正有用的部分从这里开始：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-keyword">let</span> k = <span class="hljs-number">0x166c</span> + -<span class="hljs-number">0x7</span> * -<span class="hljs-number">0x4cf</span> + -<span class="hljs-number">0x1</span> * <span class="hljs-number">0x357b</span>;<br></code></pre></td></tr></table></figure>
+
+<p>这里定义了一个变量k，计算它的初始值为 5740 + 8617 - 13691 &#x3D; 666。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">core</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">const</span> _0x47b80f = _0x2460, _0x3074a9 = &#123;<br>        <span class="hljs-string">&#x27;gFKKr&#x27;</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">_0xe55803, _0xa329bf</span>) &#123;<br>            <span class="hljs-keyword">return</span> _0xe55803 === _0xa329bf;<br>        &#125;,<br>        <span class="hljs-string">&#x27;HPqhV&#x27;</span>: <span class="hljs-title function_">_0x47b80f</span>(<span class="hljs-number">0x1b6</span>) + <span class="hljs-title function_">_0x47b80f</span>(<span class="hljs-number">0x1b8</span>) + <span class="hljs-title function_">_0x47b80f</span>(<span class="hljs-number">0x1be</span>) + <span class="hljs-string">&#x27;a3&#x27;</span><br>    &#125;;<br>    <span class="hljs-comment">// 这里判断 k 是否等于某个值</span><br>    <span class="hljs-keyword">if</span> (_0x3074a9[<span class="hljs-title function_">_0x47b80f</span>(<span class="hljs-number">0x1b9</span>)](k, -<span class="hljs-number">0x295</span> * <span class="hljs-number">0xf</span> + -<span class="hljs-number">0x1</span> * <span class="hljs-number">0x134b</span> + -<span class="hljs-number">0x1</span> * -<span class="hljs-number">0x41ef</span>))<br>        <span class="hljs-keyword">return</span> _0x3074a9[<span class="hljs-title function_">_0x47b80f</span>(<span class="hljs-number">0x1bc</span>)];<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里的gfKKr是用来执行&#x3D;&#x3D;&#x3D;（严格相等运算符）比较的，目的是确保k的绝对精确。</p>
+<p>HPqhV则是由三个字符串加上a3拼接而成的，这很可能就是flag。</p>
+<p>大致意思就是，这个core函数会检查变量 k 是否等于特定的数值，如果匹配，则返回一串拼接好的加密字符串或 Key。</p>
+<p>计算一下这个值：-9915 - 4939 + 16879 &#x3D; 2025，我们需要让k的值达到2025才能触发这个函数，这样网页会返回HPqhV的值。但分析所有的js代码可知，我们在飞机大战的游戏中没有能够改变k值的用户行为。难道没有办法了吗？</p>
+<p>其实不然。既然游戏内部毫无办法，我们可以在游戏外进行降维打击。</p>
+<p>打开html网页，按F12打开控制台，直接输入以下内容：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript">k = <span class="hljs-number">2025</span>; <span class="hljs-comment">// 强制让 k 达到触发条件</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">core</span>()); <span class="hljs-comment">// 打印结果</span><br></code></pre></td></tr></table></figure>
+
+<p>直接就吐出了flag。没错，就这么简单。</p>
+<figure>
+  <img src="/img/屏幕截图 2026-02-02 012948.png" srcset="/img/loading.gif" lazyload>
+  <figcaption>用点web知识</figcaption>
+</figure>
+
+<p><strong>flag{873bf00c577c3f7bbf9976849b468ba3}</strong></p>
+<h3 id="data"><a href="#data" class="headerlink" title="data"></a>data</h3><p>下方可以下载题目附件哦⬇️</p>
+<div class="note note-primary">
+            <p><strong>📥 题目附件下载</strong><br>文件名：data.zip<br>大小：717 KB<br><a href="/download/data.zip">点我下载</a></p>
+          </div>
+
+<p>解压题目附件发现一个没有扩展名的data，不知道是什么，先扔进010看一眼</p>
+<figure>
+  <img src="/img/屏幕截图 2026-02-02 124526.png" srcset="/img/loading.gif" lazyload>
+  <figcaption>验明真身</figcaption>
+</figure>
+
+<p>文件头是51 46 49 FB，加上dirty bit、corrupt bit等可读文本，可以确定这是一个 QCOW2 (QEMU Copy-On-Write) 磁盘镜像文件。</p>
+<p>这时候就要用到R-STUDIO，一款功能极其强大的数据恢复和磁盘策略工具。注意是R-STUDIO，不是RStudio，这是两个东西！</p>
+<p>为了防止你踩坑，这里提供正确的下载方式⬇️</p>
+<p><a href="https://www.r-studio.com/zhcn/" target="_blank">点我打开下载界面</a></p>
+<p>然后你会发现正版下载要50刀…富哥富姐们可以直接购买，像我一样喜欢白嫖的那就仁者见仁智者见智啦，这里不多赘述哦</p>
+<p>双击启动R-STUDIO，点击打开镜像，在弹出的对话框中，定位到data的存储位置。记得右下角筛选要选全部文件(<em>.</em>)，不然不显示。点击打开后，就可以看到左侧设备&#x2F;磁盘一栏多出了镜像文件。选中所有镜像文件点击扫描，出现了Recognized 分区和原始文件分区。在Recognized 分区中找到了7-zip归档，对对应的原始文件进行恢复。</p>
+<div style="display: flex; justify-content: space-between; gap: 10px;">
+  <div style="flex: 1;">
+    <img src="/img/屏幕截图 2026-02-02 134406.png" srcset="/img/loading.gif" lazyload style="width: 100%; border-radius: 8px;">
+    <p style="text-align: center; font-size: 0.8em;">对镜像文件扫描后得到了两个分区</p>
+  </div>
+  <div style="flex: 1;">
+    <img src="/img/屏幕截图 2026-02-02 134340.png" srcset="/img/loading.gif" lazyload style="width: 100%; border-radius: 8px;">
+    <p style="text-align: center; font-size: 0.8em;">恢复7z文件</p>
+  </div>
+</div>
+
+<p>两个7z文件内容是一样的，选一个恢复就行，记得指定恢复路径。恢复后解压7z，发现all.zip，里面有64个png。简单查看发现似乎是64个二维码碎片，我们需要用脚本将其拼接。但仔细观察，二维码的定位角出现了12次，说明实际上是4个二维码，每个被切成了16份。一般来说，这种碎片都是脚本处理后的结果，碎片的产生具有时间顺序。所以我们优先按照时间顺序恢复，如果时间相同（相差极短），就按照文件名排序，从左到右，从上到下依次恢复成4张4×4的图片。</p>
+<p>脚本如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">solve_quad_puzzles</span>():<br>    <span class="hljs-comment"># 设为当前目录</span><br>    source_dir = <span class="hljs-string">&#x27;.&#x27;</span> <br>    <br>    <span class="hljs-comment"># 1. 识别所有图片碎片（排除掉脚本本身和可能生成的结果图）</span><br>    valid_extensions = (<span class="hljs-string">&#x27;.png&#x27;</span>, <span class="hljs-string">&#x27;.jpg&#x27;</span>, <span class="hljs-string">&#x27;.jpeg&#x27;</span>, <span class="hljs-string">&#x27;.bmp&#x27;</span>)<br>    files = []<br>    <span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> os.listdir(source_dir):<br>        <span class="hljs-keyword">if</span> f.lower().endswith(valid_extensions) <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> f.startswith(<span class="hljs-string">&#x27;result_&#x27;</span>):<br>            path = os.path.join(source_dir, f)<br>            <span class="hljs-comment"># 获取高精度修改时间</span><br>            mtime = os.path.getmtime(path)<br>            files.append(&#123;<br>                <span class="hljs-string">&#x27;name&#x27;</span>: f,<br>                <span class="hljs-string">&#x27;path&#x27;</span>: path,<br>                <span class="hljs-string">&#x27;mtime&#x27;</span>: mtime<br>            &#125;)<br><br>    <span class="hljs-comment"># 2. 排序：时间为主，名称为辅</span><br>    files.sort(key=<span class="hljs-keyword">lambda</span> x: (x[<span class="hljs-string">&#x27;mtime&#x27;</span>], x[<span class="hljs-string">&#x27;name&#x27;</span>]))<br><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(files) != <span class="hljs-number">64</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;警告：检测到 <span class="hljs-subst">&#123;<span class="hljs-built_in">len</span>(files)&#125;</span> 个碎片。当前逻辑按 16 碎片/图处理。&quot;</span>)<br><br>    <span class="hljs-comment"># 3. 准备参数</span><br>    rows, cols = <span class="hljs-number">4</span>, <span class="hljs-number">4</span>  <span class="hljs-comment"># 每张二维码是 4x4 拼接</span><br>    img_per_qr = rows * cols<br>    <br>    <span class="hljs-comment"># 获取碎片尺寸</span><br>    sample_img = Image.<span class="hljs-built_in">open</span>(files[<span class="hljs-number">0</span>][<span class="hljs-string">&#x27;path&#x27;</span>])<br>    w, h = sample_img.size<br><br>    <span class="hljs-comment"># 4. 分组拼接（每 16 个碎片一张图）</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(files), img_per_qr):<br>        qr_index = i // img_per_qr + <span class="hljs-number">1</span><br>        batch = files[i : i + img_per_qr]<br>        <br>        <span class="hljs-comment"># 创建 4x4 的画布</span><br>        canvas = Image.new(<span class="hljs-string">&#x27;RGB&#x27;</span>, (w * cols, h * rows))<br>        <br>        <span class="hljs-keyword">for</span> index, file_info <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(batch):<br>            img = Image.<span class="hljs-built_in">open</span>(file_info[<span class="hljs-string">&#x27;path&#x27;</span>])<br>            r = index // cols<br>            c = index % cols<br>            canvas.paste(img, (c * w, r * h))<br>        <br>        output_name = <span class="hljs-string">f&#x27;result_<span class="hljs-subst">&#123;qr_index&#125;</span>.png&#x27;</span><br>        canvas.save(output_name)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;已生成第 <span class="hljs-subst">&#123;qr_index&#125;</span> 张二维码: <span class="hljs-subst">&#123;output_name&#125;</span> (包含 <span class="hljs-subst">&#123;<span class="hljs-built_in">len</span>(batch)&#125;</span> 个碎片)&quot;</span>)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    solve_quad_puzzles()<br></code></pre></td></tr></table></figure>
+
+<p>扔进all文件夹里运行一下得到四张图片，发现只有第四张二维码是完整的。</p>
+<figure>
+  <img src="/img/屏幕截图 2026-02-02 143120.png" srcset="/img/loading.gif" lazyload>
+  <figcaption>result_4.png是我们需要的</figcaption>
+</figure>
+
+<p>扫描得到以下内容：</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf"><span class="hljs-attribute">K5LGIS2TGBIXSVKEJJKVCVJRJBKGW4CZKNDFUSKUIVTTAUSWIJFFC2SWKZLFKWTBK5LGIWSVGFUFKVTKJF4VO3DIIZLFMULZKIYGG6KRKVCXSVLKLJDFKVSGIRLDCVSKKZDHAUCTKZSEUV2GJZMU4222IJLEMZCTKMYFUS2XKVDFOVCVOBFFE2S2JBKWYVSTKBKDAOKQKQYDS</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><br></code></pre></td></tr></table></figure>
+
+<p>接下来就是赛博厨子魅力时刻。经过不断尝试，解密顺序为base32–&gt; base64 –&gt; rot13 –&gt; base32 –&gt; base64</p>
+<figure>
+  <img src="/img/屏幕截图 2026-02-02 144540.png" srcset="/img/loading.gif" lazyload>
+  <figcaption>DDDDDecode</figcaption>
+</figure>
+
+<p><strong>flag{4a154507-ba7d-3f79-8739-91533b2bafc7}</strong></p>
+<h2 id="未解之谜"><a href="#未解之谜" class="headerlink" title="未解之谜"></a>未解之谜</h2><p>题目名称：流量包中的秘密（这下真成秘密了）</p>
+<p>附件放在下面了，哪位misc大手子看到了有兴趣可以解一下👇</p>
+<div class="note note-primary">
+            <p><strong>📥 题目附件下载</strong><br>文件名：flag.zip<br>大小：20566 KB<br><a href="/download/flag.zip">点我下载</a></p>
+          </div>
                 
               </div>
             
