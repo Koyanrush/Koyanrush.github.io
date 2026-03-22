@@ -31,3 +31,31 @@
 .post-copyright-license {
   display: none !important;
 }
+
+/* 全局底色/底图设置 */
+body {
+    /* 引用你本地的图片地址 */
+    background-image: url("/img/senery3.jpg"); 
+    
+    /* 让背景图固定，不随滚动条晃动 */
+    background-attachment: fixed; 
+    
+    /* 背景图全屏铺满 */
+    background-size: cover;
+    
+    /* 背景图居中 */
+    background-position: center;
+}
+
+/* 为了让正文更有“纸张感”，可以给正文容器加一点点透明度或阴影（可选） */
+.column-content {
+    background-color: rgba(255, 255, 255, 0.9); /* 白色背景加 90% 不透明度 */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* 如果你用的是 Fluid 的深色模式，记得适配 */
+[data-user-color-scheme='dark'] .column-content {
+    background-color: rgba(30, 30, 30, 0.9);
+}
