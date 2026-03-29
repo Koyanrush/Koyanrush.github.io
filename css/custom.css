@@ -62,12 +62,6 @@ body {
 
 /* ========== 首页文章卡片优化（亮色卡片 / 暗色透明） ========== */
 
-/* 弱化首页大白板 */
-#board {
-  background: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
-}
 
 /* 标题更自然 */
 .index-header {
@@ -79,7 +73,7 @@ body {
   text-overflow: unset !important;
 }
 
-/* 首页简介：保留，用 description 驱动 */
+/* 首页简介：用 front-matter 的 description 驱动 */
 .index-excerpt {
   display: block !important;
   margin: 0.35rem 0 0.8rem 0 !important;
@@ -110,7 +104,7 @@ body {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
 }
 
-/* 卡片 hover 动效：轻微浮动 */
+/* 卡片 hover 动效 */
 .index-card {
   transition: transform 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease;
   will-change: transform;
@@ -122,7 +116,7 @@ body {
   }
 }
 
-/* ========== 亮色模式：做独立卡片 ========== */
+/* ========== 仅亮色模式：首页做独立卡片 ========== */
 html[data-user-color-scheme='light'] .index-card {
   margin: 0 0 1.75rem 0 !important;
   padding: 1.25rem 1.5rem !important;
@@ -151,9 +145,9 @@ html[data-user-color-scheme='light'] .index-btm {
   border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-/* ========== 暗色模式：恢复透明、保持连贯 ========== */
+/* ========== 暗色模式：首页保持原来透明连贯风格 ========== */
 html[data-user-color-scheme='dark'] .index-card {
-  margin-bottom: 2.5rem !important;   /* 接近主题默认 */
+  margin-bottom: 2.5rem !important;
   padding: 0 !important;
   border-radius: 0 !important;
   background: transparent !important;
@@ -176,7 +170,6 @@ html[data-user-color-scheme='dark'] .index-btm {
   border-top: none !important;
 }
 
-/* 暗色模式 hover：只轻微浮动，不加实体底 */
 html[data-user-color-scheme='dark'] .index-card:hover {
   box-shadow: none !important;
 }
@@ -200,3 +193,4 @@ html[data-user-color-scheme='dark'] .index-card:hover {
     margin-bottom: 0.65rem !important;
   }
 }
+
