@@ -59,3 +59,144 @@ body {
 [data-user-color-scheme='dark'] .column-content {
     background-color: rgba(30, 30, 30, 0.9);
 }
+
+/* ========== 首页文章卡片优化（亮色卡片 / 暗色透明） ========== */
+
+/* 弱化首页大白板 */
+#board {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* 标题更自然 */
+.index-header {
+  margin-bottom: 0.65rem !important;
+  font-size: 1.35rem !important;
+  line-height: 1.5 !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+}
+
+/* 首页简介：保留，用 description 驱动 */
+.index-excerpt {
+  display: block !important;
+  margin: 0.35rem 0 0.8rem 0 !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+  font-size: 0.98rem;
+  line-height: 1.75;
+}
+
+.index-excerpt > div {
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: 2 !important;
+  overflow: hidden !important;
+  width: 100%;
+}
+
+/* 底部元信息 */
+.index-btm {
+  margin-top: 0.1rem;
+  padding-top: 0.6rem;
+}
+
+/* 图片统一 */
+.index-img img {
+  border-radius: 14px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* 卡片 hover 动效：轻微浮动 */
+.index-card {
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease;
+  will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .index-card:hover {
+    transform: translateY(-4px);
+  }
+}
+
+/* ========== 亮色模式：做独立卡片 ========== */
+html[data-user-color-scheme='light'] .index-card {
+  margin: 0 0 1.75rem 0 !important;
+  padding: 1.25rem 1.5rem !important;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+html[data-user-color-scheme='light'] .index-card:hover {
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.12);
+}
+
+html[data-user-color-scheme='light'] .index-info {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+html[data-user-color-scheme='light'] .index-excerpt {
+  color: rgba(60, 60, 67, 0.78) !important;
+}
+
+html[data-user-color-scheme='light'] .index-btm {
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* ========== 暗色模式：恢复透明、保持连贯 ========== */
+html[data-user-color-scheme='dark'] .index-card {
+  margin-bottom: 2.5rem !important;   /* 接近主题默认 */
+  padding: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html[data-user-color-scheme='dark'] .index-info {
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+}
+
+html[data-user-color-scheme='dark'] .index-excerpt {
+  color: rgba(230, 237, 243, 0.72) !important;
+}
+
+html[data-user-color-scheme='dark'] .index-btm {
+  border-top: none !important;
+}
+
+/* 暗色模式 hover：只轻微浮动，不加实体底 */
+html[data-user-color-scheme='dark'] .index-card:hover {
+  box-shadow: none !important;
+}
+
+/* 手机端 */
+@media (max-width: 767px) {
+  html[data-user-color-scheme='light'] .index-card {
+    padding: 1rem !important;
+    margin-bottom: 1.1rem !important;
+    border-radius: 14px;
+  }
+
+  .index-header {
+    font-size: 1.18rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .index-excerpt {
+    font-size: 0.94rem;
+    line-height: 1.65;
+    margin-bottom: 0.65rem !important;
+  }
+}
