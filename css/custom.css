@@ -1,4 +1,4 @@
-/* 强制首页 Slogan (打字机文字) 锐化 */
+/* 强制首页 Slogan（打字机文字）锐化 */
 .index-info .typed-text {
  color: #000000 !important; /* 纯黑 */
   /* 如果背景较深，加一个淡淡的白色发光边缘，文字会更清晰 */
@@ -49,7 +49,7 @@ body {
 
 /* 为了让正文更有“纸张感”，可以给正文容器加一点点透明度或阴影（可选） */
 .column-content {
-    background-color: rgba(255, 255, 255, 0.9); /* 白色背景加 90% 不透明度 */
+    background-color: rgba(255, 255, 255, 0.9); /* 白色背景，90% 不透明 */
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -73,7 +73,7 @@ body {
   text-overflow: unset !important;
 }
 
-/* 首页简介：用 front-matter 的 description 驱动 */
+/* 首页简介：由 front-matter 的 description 驱动 */
 .index-excerpt {
   display: block !important;
   margin: 0.35rem 0 0.8rem 0 !important;
@@ -194,82 +194,82 @@ html[data-user-color-scheme='dark'] .index-card:hover {
   }
 }
 /* ========== Mystery entry button on about page ========== */
-.about-page .mystery-entry-section {
+.about-content .mystery-entry-section {
   position: relative;
-  margin: 4.2rem auto 1.2rem;
+  margin: clamp(56rem, 96vh, 80rem) auto 2rem;
+  padding: 2.6rem 0 1.2rem;
   text-align: center;
 }
 
-.about-page .mystery-entry-section::before {
+.about-content .mystery-entry-section::before {
   content: "";
   position: absolute;
   left: 50%;
   top: 50%;
-  width: min(360px, 78vw);
-  height: 120px;
+  width: min(520px, 88vw);
+  height: 240px;
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(120, 126, 255, 0.22), transparent 68%);
-  filter: blur(28px);
+  background:
+    radial-gradient(circle, rgba(59, 98, 196, 0.2), transparent 48%),
+    radial-gradient(circle at 70% 42%, rgba(144, 234, 255, 0.18), transparent 38%),
+    radial-gradient(circle at 38% 68%, rgba(255, 170, 222, 0.16), transparent 36%);
+  filter: blur(40px);
   pointer-events: none;
   z-index: 0;
 }
 
-.about-page .mystery-entry-label,
-.about-page .mystery-entry-hint {
+.about-content .mystery-entry-hint {
   position: relative;
   z-index: 1;
-}
-
-.about-page .mystery-entry-label {
-  margin: 0 0 1rem;
-  color: rgba(86, 97, 136, 0.88);
-  letter-spacing: 0.1em;
-  font-size: 0.96rem;
-}
-
-.about-page .mystery-entry-hint {
-  margin: 1rem 0 0;
-  color: rgba(92, 99, 125, 0.76);
+  margin: 1.2rem 0 0;
+  color: rgba(69, 78, 112, 0.72);
   font-size: 0.92rem;
+  letter-spacing: 0.08em;
 }
 
-.about-page .mystery-entry-button {
+.about-content .mystery-entry-button {
   position: relative;
   z-index: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 230px;
-  padding: 0.95rem 2.2rem;
+  min-width: 270px;
+  min-height: 68px;
+  padding: 1.05rem 2.7rem;
   border-radius: 999px;
   overflow: hidden;
   isolation: isolate;
   text-decoration: none !important;
   color: #f8fbff !important;
-  letter-spacing: 0.28em;
-  font-size: 1rem;
+  letter-spacing: 0.34em;
+  font-size: 1.02rem;
   font-weight: 700;
+  text-transform: uppercase;
   background:
-    linear-gradient(135deg, rgba(73, 57, 150, 0.96), rgba(38, 109, 171, 0.92) 46%, rgba(212, 104, 188, 0.95));
-  border: 1px solid rgba(255, 255, 255, 0.26);
+    radial-gradient(circle at 50% 50%, rgba(205, 247, 255, 0.3), transparent 30%),
+    linear-gradient(135deg, rgba(16, 36, 88, 0.98), rgba(33, 92, 148, 0.96) 32%, rgba(121, 67, 171, 0.94) 68%, rgba(239, 128, 177, 0.95));
+  border: 1px solid rgba(214, 235, 255, 0.34);
   box-shadow:
-    0 16px 38px rgba(56, 37, 99, 0.24),
-    inset 0 1px 0 rgba(255, 255, 255, 0.28),
-    0 0 24px rgba(136, 109, 255, 0.18);
-  transition: transform 0.26s ease, box-shadow 0.26s ease, filter 0.26s ease;
+    0 24px 48px rgba(18, 34, 79, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.34),
+    inset 0 -10px 20px rgba(21, 11, 48, 0.22),
+    0 0 36px rgba(108, 171, 255, 0.22);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
 }
 
-.about-page .mystery-entry-button::before {
+.about-content .mystery-entry-button::before {
   content: "";
   position: absolute;
-  inset: -1px;
+  inset: 1px;
   border-radius: inherit;
-  background: linear-gradient(120deg, rgba(255, 255, 255, 0.14), transparent 24%, transparent 74%, rgba(255, 255, 255, 0.16));
-  opacity: 0.9;
+  background:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.24), transparent 24%, transparent 74%, rgba(255, 255, 255, 0.2)),
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.2), transparent 44%);
+  opacity: 0.95;
   z-index: -1;
 }
 
-.about-page .mystery-entry-button::after {
+.about-content .mystery-entry-button::after {
   content: attr(data-tooltip);
   position: absolute;
   left: 50%;
@@ -277,7 +277,7 @@ html[data-user-color-scheme='dark'] .index-card:hover {
   transform: translate(-50%, 10px) scale(0.96);
   padding: 0.72rem 1rem;
   border-radius: 14px;
-  background: rgba(16, 19, 39, 0.96);
+  background: rgba(11, 18, 38, 0.96);
   color: #f6f8ff;
   white-space: nowrap;
   letter-spacing: normal;
@@ -290,16 +290,17 @@ html[data-user-color-scheme='dark'] .index-card:hover {
   transition: opacity 0.22s ease, transform 0.22s ease;
 }
 
-.about-page .mystery-entry-button:hover {
-  transform: translateY(-3px) scale(1.02);
-  filter: saturate(1.06);
+.about-content .mystery-entry-button:hover {
+  transform: translateY(-5px) scale(1.035);
+  filter: saturate(1.14) brightness(1.04);
   box-shadow:
-    0 22px 42px rgba(56, 37, 99, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.32),
-    0 0 30px rgba(136, 109, 255, 0.24);
+    0 28px 58px rgba(18, 34, 79, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    inset 0 -12px 22px rgba(21, 11, 48, 0.24),
+    0 0 46px rgba(131, 198, 255, 0.34);
 }
 
-.about-page .mystery-entry-button:focus-visible {
+.about-content .mystery-entry-button:focus-visible {
   outline: none;
   box-shadow:
     0 0 0 4px rgba(140, 181, 255, 0.22),
@@ -307,71 +308,73 @@ html[data-user-color-scheme='dark'] .index-card:hover {
     inset 0 1px 0 rgba(255, 255, 255, 0.32);
 }
 
-.about-page .mystery-entry-stars {
+.about-content .mystery-entry-stars {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 0;
 }
 
-.about-page .mystery-entry-stars::before {
+.about-content .mystery-entry-stars::before {
   content: "";
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 20% 36%, rgba(255, 255, 255, 0.92) 0 1px, transparent 2.4px),
-    radial-gradient(circle at 76% 30%, rgba(215, 239, 255, 0.88) 0 1.3px, transparent 3px),
-    radial-gradient(circle at 61% 72%, rgba(255, 220, 255, 0.82) 0 1.4px, transparent 3px),
-    radial-gradient(circle at 32% 68%, rgba(197, 227, 255, 0.88) 0 1px, transparent 2.6px);
-  opacity: 0.88;
+    radial-gradient(circle at 18% 34%, rgba(255, 255, 255, 0.96) 0 1px, transparent 2.4px),
+    radial-gradient(circle at 78% 28%, rgba(205, 247, 255, 0.92) 0 1.2px, transparent 3px),
+    radial-gradient(circle at 65% 72%, rgba(255, 209, 244, 0.88) 0 1.5px, transparent 3px),
+    radial-gradient(circle at 34% 69%, rgba(188, 230, 255, 0.9) 0 1px, transparent 2.8px),
+    radial-gradient(circle at 52% 44%, rgba(255, 245, 199, 0.78) 0 1.2px, transparent 3px);
+  opacity: 0.94;
 }
 
-.about-page .mystery-entry-stars::after {
+.about-content .mystery-entry-stars::after {
   content: "";
   position: absolute;
-  top: -20%;
-  bottom: -20%;
-  width: 42%;
-  left: -48%;
-  background: linear-gradient(115deg, transparent, rgba(255, 255, 255, 0.34), transparent);
-  transform: skewX(-24deg);
-  animation: mystery-entry-sweep 5.8s linear infinite;
-  opacity: 0.8;
+  inset: -18%;
+  background:
+    conic-gradient(from 180deg at 50% 50%, transparent 0deg, rgba(194, 246, 255, 0.26) 70deg, transparent 132deg, rgba(255, 196, 236, 0.24) 226deg, transparent 288deg, rgba(255, 255, 255, 0.22) 360deg);
+  animation: mystery-entry-aurora 8s linear infinite;
+  opacity: 0.84;
+  mix-blend-mode: screen;
 }
 
-.about-page .mystery-entry-text {
+.about-content .mystery-entry-text {
   position: relative;
   z-index: 1;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.18);
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .about-page .mystery-entry-button:hover::after {
+  .about-content .mystery-entry-button:hover::after {
     opacity: 1;
     transform: translate(-50%, 0) scale(1);
   }
 }
 
 @media (max-width: 767px) {
-  .about-page .mystery-entry-section {
-    margin-top: 3.2rem;
+  .about-content .mystery-entry-section {
+    margin-top: clamp(40rem, 72vh, 56rem);
+    padding-top: 1.6rem;
   }
 
-  .about-page .mystery-entry-button {
-    min-width: 200px;
-    padding: 0.9rem 1.8rem;
-    letter-spacing: 0.18em;
+  .about-content .mystery-entry-button {
+    min-width: 220px;
+    min-height: 62px;
+    padding: 0.95rem 2rem;
+    letter-spacing: 0.22em;
   }
 
-  .about-page .mystery-entry-hint {
+  .about-content .mystery-entry-hint {
     padding: 0 0.8rem;
   }
 }
 
-@keyframes mystery-entry-sweep {
+@keyframes mystery-entry-aurora {
   0% {
-    left: -48%;
+    transform: rotate(0deg) scale(1);
   }
   100% {
-    left: 116%;
+    transform: rotate(360deg) scale(1.06);
   }
 }
