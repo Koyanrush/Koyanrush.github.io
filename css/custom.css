@@ -1,207 +1,65 @@
-/* 强制首页 Slogan（打字机文字）锐化 */
-.index-info .typed-text {
- color: #000000 !important; /* 纯黑 */
-  /* 如果背景较深，加一个淡淡的白色发光边缘，文字会更清晰 */
-  text-shadow: 0 0 2px rgba(255, 255, 255, 0.5) !important; 
-  font-weight: 800 !important; /* 加粗 */
-  filter: none !important;
+/* ========== 首页"随便逛逛"区背景图 ========== */
+#random-banner {
+  background: url('/img/15752780702388544.jpg') center/cover no-repeat !important;
 }
 
-/* 如果是副标题（slogan 下方的小字）模糊 */
-.index-info .index-slogan {
-  color: #000000 !important;
+/* 让 banner 上的标题文字在亮色背景图上仍清晰可读 */
+#random-banner .banners-title-big {
+  color: #ffffff !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55), 0 0 2px rgba(0, 0, 0, 0.4);
 }
 
-/* 2. 强化看板娘对话框文字清晰度 */
-#waifu-tips {
-  color: #333 !important;              /* 对话框通常是浅色背景，文字用深色 */
-  font-weight: 500 !important;
-  opacity: 1 !important;               /* 确保不透明 */
-  line-height: 1.5;
+#random-banner .banners-title-small {
+  color: rgba(255, 255, 255, 0.92) !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* 3. 如果看板娘对话框背景太透明，也可以改亮一点 */
-.waifu-tips {
-  background-color: rgba(255, 255, 255, 0.9) !important;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+/* ========== Aside 作者卡片背景图 ========== */
+/* 覆盖主题默认的 ::before 渐变动画，改成显示自定义背景图 */
+#aside-content > .card-widget.card-info::before {
+  background: url('/img/aside-cardbg.webp') center/cover no-repeat !important;
+  animation: none !important;
 }
 
-/* 隐藏版权声明中的许可协议图标和文字 */
-.post-copyright-license {
-  display: none !important;
+/* hover 时描述文字加深色背板 + 阴影，让白字在亮色背景上更醒目 */
+#aside-content > .card-widget.card-info .author-info__description {
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0);
+  transition: opacity 0.3s ease, background 0.3s ease, transform 0.4s ease;
+  transform: translateY(8px);
 }
 
-/* 全局底色/底图设置 */
-body {
-    /* 引用你本地的图片地址 */
-    background-image: url("/img/senery3.jpg"); 
-    
-    /* 让背景图固定，不随滚动条晃动 */
-    background-attachment: fixed; 
-    
-    /* 背景图全屏铺满 */
-    background-size: cover;
-    
-    /* 背景图居中 */
-    background-position: center;
+#aside-content > .card-widget.card-info:hover .author-info__description {
+  background: rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  transform: translateY(0);
 }
 
-/* 为了让正文更有“纸张感”，可以给正文容器加一点点透明度或阴影（可选） */
-.column-content {
-    background-color: rgba(255, 255, 255, 0.9); /* 白色背景，90% 不透明 */
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+/* ========== Aside 公众号卡：让翻转区域填满容器，避免两侧露底色 ========== */
+#aside-content #card-wechat #flip-wrapper {
+  width: 100% !important;
 }
 
-/* 如果你用的是 Fluid 的深色模式，记得适配 */
-[data-user-color-scheme='dark'] .column-content {
-    background-color: rgba(30, 30, 30, 0.9);
+#aside-content #flip-wrapper #flip-content .face,
+#aside-content #flip-wrapper #flip-content .back.face {
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
 }
 
-/* ========== 首页文章卡片优化（亮色卡片 / 暗色透明） ========== */
-
-
-/* 标题更自然 */
-.index-header {
-  margin-bottom: 0.65rem !important;
-  font-size: 1.35rem !important;
-  line-height: 1.5 !important;
-  white-space: normal !important;
-  overflow: visible !important;
-  text-overflow: unset !important;
-}
-
-/* 首页简介：由 front-matter 的 description 驱动 */
-.index-excerpt {
-  display: block !important;
-  margin: 0.35rem 0 0.8rem 0 !important;
-  height: auto !important;
-  max-height: none !important;
-  overflow: visible !important;
-  font-size: 0.98rem;
-  line-height: 1.75;
-}
-
-.index-excerpt > div {
-  display: -webkit-box !important;
-  -webkit-box-orient: vertical !important;
-  -webkit-line-clamp: 2 !important;
-  overflow: hidden !important;
-  width: 100%;
-}
-
-/* 底部元信息 */
-.index-btm {
-  margin-top: 0.1rem;
-  padding-top: 0.6rem;
-}
-
-/* 图片统一 */
-.index-img img {
-  border-radius: 14px !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
-}
-
-/* 卡片 hover 动效 */
-.index-card {
-  transition: transform 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease;
-  will-change: transform;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .index-card:hover {
-    transform: translateY(-4px);
-  }
-}
-
-/* ========== 仅亮色模式：首页做独立卡片 ========== */
-html[data-user-color-scheme='light'] .index-card {
-  margin: 0 0 1.75rem 0 !important;
-  padding: 1.25rem 1.5rem !important;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-
-html[data-user-color-scheme='light'] .index-card:hover {
-  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.12);
-}
-
-html[data-user-color-scheme='light'] .index-info {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-}
-
-html[data-user-color-scheme='light'] .index-excerpt {
-  color: rgba(60, 60, 67, 0.78) !important;
-}
-
-html[data-user-color-scheme='light'] .index-btm {
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-/* ========== 暗色模式：首页保持原来透明连贯风格 ========== */
-html[data-user-color-scheme='dark'] .index-card {
-  margin-bottom: 2.5rem !important;
-  padding: 0 !important;
-  border-radius: 0 !important;
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-}
-
-html[data-user-color-scheme='dark'] .index-info {
-  padding-top: 0.5rem !important;
-  padding-bottom: 0.5rem !important;
-}
-
-html[data-user-color-scheme='dark'] .index-excerpt {
-  color: rgba(230, 237, 243, 0.72) !important;
-}
-
-html[data-user-color-scheme='dark'] .index-btm {
-  border-top: none !important;
-}
-
-html[data-user-color-scheme='dark'] .index-card:hover {
-  box-shadow: none !important;
-}
-
-/* 手机端 */
-@media (max-width: 767px) {
-  html[data-user-color-scheme='light'] .index-card {
-    padding: 1rem !important;
-    margin-bottom: 1.1rem !important;
-    border-radius: 14px;
-  }
-
-  .index-header {
-    font-size: 1.18rem !important;
-    margin-bottom: 0.5rem !important;
-  }
-
-  .index-excerpt {
-    font-size: 0.94rem;
-    line-height: 1.65;
-    margin-bottom: 0.65rem !important;
-  }
-}
 /* ========== Mystery entry button on about page ========== */
-.about-content .mystery-entry-section {
+#article-container .mystery-entry-section {
   position: relative;
   margin: clamp(56rem, 96vh, 80rem) auto 2rem;
   padding: 2.6rem 0 1.2rem;
   text-align: center;
 }
 
-.about-content .mystery-entry-section::before {
+#article-container .mystery-entry-section::before {
   content: "";
   position: absolute;
   left: 50%;
@@ -218,7 +76,7 @@ html[data-user-color-scheme='dark'] .index-card:hover {
   z-index: 0;
 }
 
-.about-content .mystery-entry-hint {
+#article-container .mystery-entry-hint {
   position: relative;
   z-index: 1;
   margin: 1.2rem 0 0;
@@ -227,7 +85,7 @@ html[data-user-color-scheme='dark'] .index-card:hover {
   letter-spacing: 0.08em;
 }
 
-.about-content .mystery-entry-button {
+#article-container .mystery-entry-button {
   position: relative;
   z-index: 1;
   display: inline-flex;
@@ -257,7 +115,7 @@ html[data-user-color-scheme='dark'] .index-card:hover {
   transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
 }
 
-.about-content .mystery-entry-button::before {
+#article-container .mystery-entry-button::before {
   content: "";
   position: absolute;
   inset: 1px;
@@ -269,7 +127,7 @@ html[data-user-color-scheme='dark'] .index-card:hover {
   z-index: -1;
 }
 
-.about-content .mystery-entry-button::after {
+#article-container .mystery-entry-button::after {
   content: attr(data-tooltip);
   position: absolute;
   left: 50%;
@@ -290,7 +148,7 @@ html[data-user-color-scheme='dark'] .index-card:hover {
   transition: opacity 0.22s ease, transform 0.22s ease;
 }
 
-.about-content .mystery-entry-button:hover {
+#article-container .mystery-entry-button:hover {
   transform: translateY(-5px) scale(1.035);
   filter: saturate(1.14) brightness(1.04);
   box-shadow:
@@ -300,7 +158,7 @@ html[data-user-color-scheme='dark'] .index-card:hover {
     0 0 46px rgba(131, 198, 255, 0.34);
 }
 
-.about-content .mystery-entry-button:focus-visible {
+#article-container .mystery-entry-button:focus-visible {
   outline: none;
   box-shadow:
     0 0 0 4px rgba(140, 181, 255, 0.22),
@@ -308,14 +166,14 @@ html[data-user-color-scheme='dark'] .index-card:hover {
     inset 0 1px 0 rgba(255, 255, 255, 0.32);
 }
 
-.about-content .mystery-entry-stars {
+#article-container .mystery-entry-stars {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 0;
 }
 
-.about-content .mystery-entry-stars::before {
+#article-container .mystery-entry-stars::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -328,7 +186,7 @@ html[data-user-color-scheme='dark'] .index-card:hover {
   opacity: 0.94;
 }
 
-.about-content .mystery-entry-stars::after {
+#article-container .mystery-entry-stars::after {
   content: "";
   position: absolute;
   inset: -18%;
@@ -339,33 +197,33 @@ html[data-user-color-scheme='dark'] .index-card:hover {
   mix-blend-mode: screen;
 }
 
-.about-content .mystery-entry-text {
+#article-container .mystery-entry-text {
   position: relative;
   z-index: 1;
   text-shadow: 0 0 12px rgba(255, 255, 255, 0.18);
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .about-content .mystery-entry-button:hover::after {
+  #article-container .mystery-entry-button:hover::after {
     opacity: 1;
     transform: translate(-50%, 0) scale(1);
   }
 }
 
 @media (max-width: 767px) {
-  .about-content .mystery-entry-section {
+  #article-container .mystery-entry-section {
     margin-top: clamp(40rem, 72vh, 56rem);
     padding-top: 1.6rem;
   }
 
-  .about-content .mystery-entry-button {
+  #article-container .mystery-entry-button {
     min-width: 220px;
     min-height: 62px;
     padding: 0.95rem 2rem;
     letter-spacing: 0.22em;
   }
 
-  .about-content .mystery-entry-hint {
+  #article-container .mystery-entry-hint {
     padding: 0 0.8rem;
   }
 }
