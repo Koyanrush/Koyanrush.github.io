@@ -236,3 +236,116 @@
     transform: rotate(360deg) scale(1.06);
   }
 }
+
+/* ========== Article image captions ========== */
+#article-container figure:not(.highlight):not(.gallery-group) {
+  margin: 1.4rem auto 1.8rem;
+  max-width: 100%;
+  text-align: center;
+}
+
+#article-container figure:not(.highlight):not(.gallery-group) > img,
+#article-container figure:not(.highlight):not(.gallery-group) > a > img {
+  display: block;
+  margin: 0 auto 0.45rem !important;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+#article-container figure:not(.highlight):not(.gallery-group) > figcaption {
+  display: block;
+  margin: 0 auto;
+  max-width: min(100%, 760px);
+  color: var(--anzhiyu-secondtext);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+#article-container figure:not(.highlight):not(.gallery-group) > figcaption:empty {
+  display: none;
+}
+
+/* ========== <details> 折叠卡片 ========== */
+/* 让正文里的 <details> 展开后有独立卡片外观，与周围正文区分开 */
+#article-container details {
+  margin: 1.6rem 0;
+  padding: 0;
+  border: 1px solid var(--anzhiyu-card-border, rgba(120, 130, 150, 0.18));
+  border-radius: 12px;
+  background: var(--anzhiyu-secondbg, rgba(245, 247, 250, 0.6));
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+#article-container details[open] {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  border-color: var(--anzhiyu-main, #425aef);
+}
+
+/* 摘要标题行：可点击、带底色，作为卡片“头部” */
+#article-container details > summary {
+  display: flex;
+  align-items: center;
+  padding: 0.7rem 1.1rem;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 600;
+  color: var(--anzhiyu-fontcolor, #363636);
+  background: var(--anzhiyu-background, rgba(255, 255, 255, 0.5));
+  user-select: none;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+#article-container details > summary:hover {
+  color: var(--anzhiyu-main, #425aef);
+  background: var(--anzhiyu-secondbg, rgba(66, 90, 239, 0.06));
+}
+
+/* 隐藏浏览器默认三角，改用自绘箭头 */
+#article-container details > summary::-webkit-details-marker {
+  display: none;
+}
+
+#article-container details > summary::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  margin-right: 0.7rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform 0.25s ease;
+}
+
+#article-container details[open] > summary::before {
+  transform: rotate(45deg);
+}
+
+/* 展开后内容区：与头部用分隔线隔开，内边距撑开 */
+#article-container details[open] > summary {
+  border-bottom: 1px dashed var(--anzhiyu-card-border, rgba(120, 130, 150, 0.22));
+}
+
+#article-container details > *:not(summary) {
+  padding-left: 1.1rem;
+  padding-right: 1.1rem;
+}
+
+/* note 的图标是绝对定位在左侧 0.8em 处的，主题靠 3em 左内边距给它留位；
+   上面的统一内边距会把它压成 1.1rem，导致首字与图标重叠，这里恢复 */
+#article-container details > .note:not(.no-icon),
+#article-container details > .note.icon-padding {
+  padding-left: 3em;
+}
+
+#article-container details > *:not(summary):first-of-type {
+  margin-top: 1rem;
+}
+
+#article-container details > *:not(summary):last-child {
+  margin-bottom: 1rem;
+}
