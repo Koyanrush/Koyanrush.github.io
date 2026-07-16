@@ -11,7 +11,7 @@
  */
 (function () {
   // ★ 部署 Worker 后改成你的地址，例如 'https://invite-gate.你的子域.workers.dev'
-  var API_BASE = 'https://invite-gate.CHANGE-ME.workers.dev';
+  var API_BASE = 'https://invite-gate.koyanrush.workers.dev';
   // 本地 hexo server 调试时自动指向本地开发服务（npm run dev）
   if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
     API_BASE = 'http://127.0.0.1:8787';
