@@ -1,7 +1,9 @@
 /**
  * invite-gate 客户端 —— 受限文章邀请码验证弹窗
- * 由 scripts/invite-gate.js 在构建时注入到 restricted: true 的文章页，
- * 验证服务：E:\AIProjects\invite-gate（Cloudflare Worker）
+ * 由 scripts/invite-gate.js 在构建时注入到 restricted: true 的文章页。
+ *
+ * 无服务器验证：构建时页面内嵌各周邀请码的 PBKDF2 哈希（#invite-gate-data），
+ * 浏览器本地推导比对，零网络请求——国内裸网环境同样可用。
  *
  * 防护层次（弹窗期间生效，验证通过全部解除）：
  *   1. 正文从 DOM 摘除，存于闭包变量 —— Elements 面板翻不到
@@ -10,12 +12,6 @@
  * 注意：初始 HTML 响应（view-source:、Network 面板、部署仓库）仍含明文，此为遮罩型防护。
  */
 (function () {
-  // ★ 部署 Worker 后改成你的地址，例如 'https://invite-gate.你的子域.workers.dev'
-  var API_BASE = 'https://invite-gate.koyanrush.workers.dev';
-  // 本地 hexo server 调试时自动指向本地开发服务（npm run dev）
-  if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
-    API_BASE = 'http://127.0.0.1:8787';
-  }
   // debugger 陷阱：DevTools 打开时每秒断一次。调试自己站点时可改为 false
   var ANTI_DEBUG = true;
 
@@ -31,6 +27,12 @@
   var lockedNodes = Array.prototype.slice.call(document.querySelectorAll('.invite-gate-locked'));
   if (!lockedNodes.length) return;
   if (document.getElementById('invite-gate-mask')) return;
+
+  // 构建时嵌入的验证数据：{ anchor, period, iters, hashes: { 周序号: pbkdf2十六进制 } }
+  var GATE = null;
+  try {
+    GATE = JSON.parse(document.getElementById('invite-gate-data').textContent);
+  } catch (e) { /* 数据缺失时 fail-closed：弹窗仍出现，提交时提示配置错误 */ }
 
   function isUnlocked() {
     try {
@@ -196,6 +198,27 @@
     card.classList.add('invite-gate-shake');
   }
 
+  // 浏览器本地 PBKDF2（WebCrypto），参数与构建端 crypto.pbkdf2Sync 完全一致
+  function pbkdf2Hex(code, weekIndex, iters) {
+    var enc = new TextEncoder();
+    return Promise.resolve()
+      .then(function () {
+        return crypto.subtle.importKey('raw', enc.encode(code), 'PBKDF2', false, ['deriveBits']);
+      })
+      .then(function (key) {
+        return crypto.subtle.deriveBits(
+          { name: 'PBKDF2', hash: 'SHA-256', salt: enc.encode('invite-gate:v1:' + weekIndex), iterations: iters },
+          key,
+          256
+        );
+      })
+      .then(function (buf) {
+        return Array.prototype.map.call(new Uint8Array(buf), function (b) {
+          return ('0' + b.toString(16)).slice(-2);
+        }).join('');
+      });
+  }
+
   function submit() {
     if (busy) return;
     var code = input.value.trim();
@@ -205,20 +228,28 @@
       input.focus();
       return;
     }
+    if (!GATE || !GATE.hashes) {
+      msg.textContent = '验证数据缺失，请联系博主';
+      shake();
+      return;
+    }
+    var idx = Math.floor((Date.now() - GATE.anchor) / GATE.period);
+    var expected = GATE.hashes[String(idx)];
+    if (!expected) {
+      msg.textContent = '邀请码数据已过期，请联系博主更新';
+      shake();
+      return;
+    }
     busy = true;
     btn.disabled = true;
     btn.textContent = '验证中…';
     msg.textContent = '';
-    fetch(API_BASE + '/verify', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ code: code })
-    })
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
-        if (data && data.ok) {
+    pbkdf2Hex(code, idx, GATE.iters)
+      .then(function (hex) {
+        if (hex === expected) {
+          var expiresAt = GATE.anchor + (idx + 1) * GATE.period;
           try {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify({ expiresAt: data.expiresAt }));
+            localStorage.setItem(STORAGE_KEY, JSON.stringify({ expiresAt: expiresAt }));
           } catch (e) { /* 隐私模式下写入失败也不阻断本次阅读 */ }
           mask.classList.add('invite-gate-pass');
           setTimeout(function () {
@@ -232,7 +263,7 @@
         }
       })
       .catch(function () {
-        msg.textContent = '验证服务暂时不可用，请稍后再试';
+        msg.textContent = '本地验证失败，请更换现代浏览器后重试';
         shake();
       })
       .finally(function () {
